@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+/Main.class
+/LC1227.class
+/Solution.class
