@@ -1,0 +1,10 @@
+import java.util.Scanner;
+
+public class Main {
+
+	static public void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		// 排列组合 不会
+
+	}
+}
