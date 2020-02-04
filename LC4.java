@@ -9,9 +9,8 @@ class Solution {
 		pos[1] = 0;
 		int lastMove = 0;
 		int count = 0;
-		if(len1==0)
-		{
-			res[0]
+		if (len1 == 0) {
+
 		}
 
 		while (count++ < (len1 + len2) / 2 + 1) {
