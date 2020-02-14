@@ -11,17 +11,19 @@ class Solution {
         if(head==null)
             return null;
         ListNode next;
+        ListNode rear=head;
         if((next=head.next)==null)
             return head;
         while(next!=null)
         {
-            print(head);
+            // print(head);
             if(next==null)
                 break;
             ListNode temp = next.next;
             next.next=head;
             head=next;
             next = temp;
+            rear.next =temp;
 
         }
         return head;
@@ -30,8 +32,10 @@ class Solution {
     void print(ListNode node)
     {
         try {
-            while (node!=null)
+            while (node!=null) {
                 System.out.print(node.val);
+                node=node.next;
+            }
         }
         catch (Exception e)
         {
