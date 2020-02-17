@@ -5,6 +5,7 @@ class Solution {
             if (target == nums[i])
                 times++;
         }
-		return times;   }
+        return times;
+    }
 
 }
