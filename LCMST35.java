@@ -1,39 +1,23 @@
-import java.util.*;
+/*
+// Definition for a Node.
+class Node {
+    int val;
+    Node next;
+    Node random;
 
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- * int val;
- * TreeNode left;
- * TreeNode right;
- * TreeNode(int x) { val = x; }
- * }
- */
+    public Node(int val) {
+        this.val = val;
+        this.next = null;
+        this.random = null;
+    }
+}
+*/
 class Solution {
-    public List<List<Integer>> levelOrder(TreeNode root) {
+    public Node copyRandomList(Node head) {
+        if(head==null)
+            reture null;
+        if(head.next==null&&head.random==null)
+            return head;
 
-        List<List<Integer>> lists = new ArrayList<>();
-        List<Integer> temp = new ArrayList<>();
-        if (root == null)
-            return lists;
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.add(root);
-        while (!queue.isEmpty()) {
-            int len = queue.size();
-            temp = new ArrayList<>();
-
-
-            for (int i = 0; i < len; i++) {
-                TreeNode node = queue.poll();
-                temp.add(node.val);
-                if (node.left != null) {
-                    queue.add(node.left);
-                }
-                if (node.right != null)
-                    queue.add(node.right);
-            }
-            lists.add(temp);
-        }
-        return lists;
     }
 }
