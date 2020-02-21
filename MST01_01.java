@@ -8,6 +8,9 @@ class Solution {
         }
         for (int i = 0; i < 26; i++) {
             char temp = (char)('a'+i);
+            if(astr.indexOf(temp)!=astr.lastIndexOf(temp))
+                return false;
         }
+        return true;
     }
 }
