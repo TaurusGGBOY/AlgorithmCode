@@ -1,29 +1,23 @@
-
-
 class Solution {
-	public int majorityElement(int[] nums) {
-		int first = nums[0];
-		int count =1;
-		for(int i=1;i<nums.length;i++)
-		{
+    public int maxSubArray(int[] nums) {
+        int sum = Math.max(nums[0], 0);
+        int max=nums[0];
 
-			if (first == nums[i]) {
-				count++;
+		for (int i = 1; i < nums.length; i++) {
+
+			if (sum + nums[i] < 0) {
+				sum=0;
+				if(nums[i]>max)
+					max = nums[i];
 			}
 			else
 			{
-				if (count == 0) {
-					first = nums[i];
-					count=1;
+				sum += nums[i];
+				if (sum > max) {
+					max = sum;
 				}
-				else
-					count--;
 			}
 		}
-		count=0;
-		for (int i = 0; i < nums.length; i++) {
-			count+=first==nums[i]?1:0;
-		}
-		return count>nums.length/2?first:-1;
-	}
+		return max;
+    }
 }
