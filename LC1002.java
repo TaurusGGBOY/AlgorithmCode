@@ -1,25 +1,31 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
- */
-class Solution {
-    public boolean isUnivalTree(TreeNode root) {
-        if(root==null)
-            return true;
-        return isTree(root.left,root.val)&&isTree(root.right,root.val);
-    }
+import java.util.LinkedList;
+import java.util.List;
 
-    boolean isTree(TreeNode node, int val)
-    {
-        if(node==null)
-            return true;
-        if(val!=node.val)
-            return false;
-        return isTree(node.left, val) && isTree(node.right, val);
+class Solution {
+    public List<String> commonChars(String[] A) {
+        int[] last = new int[26];
+        int[] temp = new int[26];
+        for (int i = 0; i < 26; i++) {
+            last[i] = Integer.MAX_VALUE;
+        }
+        for (int i = 0; i < A.length; i++) {
+            temp = new int[26];
+            for (int j = 0; j < A[i].length(); j++) {
+                temp[A[i].charAt(j) - 'a']++;
+            }
+            for (int j = 0; j < 26; j++) {
+                last[j] = Math.min(last[j], temp[j]);
+            }
+        }
+        //System.out.println(last.toString());
+        List<String> list = new LinkedList<>();
+        for (int i = 0; i < 26; i++) {
+            if(last[i]==Integer.MAX_VALUE)
+                continue;
+            for (int j = 0; j < last[i]; j++) {
+                list.add(String.valueOf((char) (i + 'a')));
+            }
+        }
+        return list;
     }
 }
