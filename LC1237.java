@@ -11,16 +11,24 @@ import java.util.List;
  *     public int f(int x, int y);
  * };
  */
+// 不喜欢这种题
 class Solution {
-	public List<List<Integer>> findSolution(CustomFunction customfunction, int z) {
-		List<List<Integer>> list = new ArrayList<>();
-		List<Integer> temp = new ArrayList<>();
-		for(int i=1;i<=z;i++)
-		{
-			for(int j=1;j<=z;j++)
-			{
-				
-			}
-		}
-	}
+    public List<List<Integer>> findSolution(CustomFunction customfunction, int z) {
+        List<List<Integer>> list = new ArrayList<>();
+        List<Integer> temp = new ArrayList<>();
+        for (int i = 1; i <= z; i++) {
+            for (int j = 1; j <= z; j++) {
+                if (customfunction.f(i, j) > z)
+                    break;
+
+                if (customfunction.f(i, j) == z) {
+                    temp = new ArrayList<>();
+                    temp.add(i);
+                    temp.add(j);
+                    list.add(temp);
+                }
+            }
+        }
+        return list;
+    }
 }

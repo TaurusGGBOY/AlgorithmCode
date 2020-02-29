@@ -18,49 +18,45 @@ class TopK {
             output = new PrintWriter(outputfile);
             output.println(str);
         }
-		String[] strArray;
-		Map<String,Integer> map;
-		Queue<Map.Entry<String,Integer>> queue = new PriorityQueue<>(10, new Comparator<Map.Entry<String, Integer>>() {
-			@Override
-			public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-				return o1.getValue()-o2.getValue();
-			}
-		});
+        String[] strArray;
+        Map<String, Integer> map;
+        Queue<Map.Entry<String, Integer>> queue = new PriorityQueue<>(10, new Comparator<Map.Entry<String, Integer>>() {
+            @Override
+            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                return o1.getValue() - o2.getValue();
+            }
+        });
         for (int i = 0; i < divNum; i++) {
             inputFile = new File("D:\\div\\d" + i + "file.txt");
-			str = readToString(inputFile);
-			strArray = str.split(System.lineSeparator());
-			map = new HashMap<>();
-			for(String string:strArray)
-			{
-				try {
-					map.put(string,map.get(string)+1);
-				}
-				catch (Exception e)
-				{
-					map.put(string, 1);
-				}
-			}
+            str = readToString(inputFile);
+            strArray = str.split(System.lineSeparator());
+            map = new HashMap<>();
+            for (String string : strArray) {
+                try {
+                    map.put(string, map.get(string) + 1);
+                } catch (Exception e) {
+                    map.put(string, 1);
+                }
+            }
 
-			for(Map.Entry<String,Integer> entry:map.entrySet())
-			{
-				if (queue.size() < 10) {
-					queue.add(entry);
-					continue;
-				}
-				if(entry.getValue()>queue.peek().getValue())
-				{
-					queue.poll();
-					queue.add(entry);
-				}
-			}
+            for (Map.Entry<String, Integer> entry : map.entrySet()) {
+                if (queue.size() < 10) {
+                    queue.add(entry);
+                    continue;
+                }
+                if (entry.getValue() > queue.peek().getValue()) {
+                    queue.poll();
+                    queue.add(entry);
+                }
+            }
         }
         Iterator<Map.Entry<String, Integer>> iterator = queue.iterator();
-		while (iterator.hasNext()) {
-			Map.Entry<String,Integer> entry = iterator.next();
-			System.out.println(entry.getKey()+" "+entry.getValue());
-		}
+        while (iterator.hasNext()) {
+            Map.Entry<String, Integer> entry = iterator.next();
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
     }
+
     public static String readToString(File file) {
         Long filelength = file.length();     //获取文件长度
         byte[] filecontent = new byte[filelength.intValue()];

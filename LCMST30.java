@@ -1,35 +1,37 @@
 import java.util.Stack;
 
 class MinStack {
-	int[] stack;
-	int point;
-	/** initialize your data structure here. */
-	public MinStack() {
-		point=0;
-		stack = new int[20001];
-	}
+    int[] stack;
+    int point;
 
-	public void push(int x) {
-		stack[point++]=x;
-	}
+    /**
+     * initialize your data structure here.
+     */
+    public MinStack() {
+        point = 0;
+        stack = new int[20001];
+    }
 
-	public void pop() {
-		point--;
-	}
+    public void push(int x) {
+        stack[point++] = x;
+    }
 
-	public int top() {
-		return stack[point-1];
-	}
+    public void pop() {
+        point--;
+    }
 
-	public int min() {
-		int min=stack[0];
-		for(int i=1;i<point;i++)
-		{
-			if(stack[i]<min)
-				min=stack[i];
-		}
-		return min;
-	}
+    public int top() {
+        return stack[point - 1];
+    }
+
+    public int min() {
+        int min = stack[0];
+        for (int i = 1; i < point; i++) {
+            if (stack[i] < min)
+                min = stack[i];
+        }
+        return min;
+    }
 }
 
 /**

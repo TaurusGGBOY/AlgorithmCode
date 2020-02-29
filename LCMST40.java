@@ -4,9 +4,9 @@ import java.util.Queue;
 
 class Solution {
     public int[] getLeastNumbers(int[] arr, int k) {
-        if(k==0)
-        	return new int[0];
-    	if (arr.length == 1 || arr.length == 0)
+        if (k == 0)
+            return new int[0];
+        if (arr.length == 1 || arr.length == 0)
             return arr;
         Queue<Integer> queue = new PriorityQueue<>(k, new Comparator<Integer>() {
             @Override
@@ -28,7 +28,7 @@ class Solution {
 
         int[] temp = new int[queue.size()];
         for (int i = 0; i < temp.length; i++) {
-			temp[i] = queue.poll();
+            temp[i] = queue.poll();
         }
         return temp;
     }

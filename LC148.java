@@ -1,30 +1,31 @@
 public class ListNode {
-	int val;
-	ListNode next;
+    int val;
+    ListNode next;
 
-	ListNode(int x) {
-		val = x;
-	}
+    ListNode(int x) {
+        val = x;
+    }
 }
 
-// ¹é²¢Ê§°Ü
+// ï¿½é²¢Ê§ï¿½ï¿½
+
 /**
  * Definition for singly-linked list. public class ListNode { int val; ListNode
  * next; ListNode(int x) { val = x; } }
  */
 class Solution {
-	public ListNode sortList(ListNode head) {
-		// ÕÒµ½ÖÐµã
-		// ´ÓÖÐµã¿ªÊ¼?
-		ListNode quickNode = head;
-		ListNode slowNode = head;
-		while (quickNode.next != null) {
-			slowNode = slowNode.next;
-			quickNode = quickNode.next.next;
-		}
-		ListNode midNode = slowNode;
+    public ListNode sortList(ListNode head) {
+        // ï¿½Òµï¿½ï¿½Ðµï¿½
+        // ï¿½ï¿½ï¿½Ðµã¿ªÊ¼?
+        ListNode quickNode = head;
+        ListNode slowNode = head;
+        while (quickNode.next != null) {
+            slowNode = slowNode.next;
+            quickNode = quickNode.next.next;
+        }
+        ListNode midNode = slowNode;
 
-		ListNode current = head;
-		while(current.next)
-	}
+        ListNode current = head;
+        while (current.next)
+    }
 }

@@ -33,18 +33,18 @@ class MyQueue {
      * Get the front element.
      */
     public int peek() {
-		if (stack1.isEmpty()) {
-			while (!stack2.isEmpty())
-				stack1.add(stack2.pop());
-		}
-		return stack1.peek();
+        if (stack1.isEmpty()) {
+            while (!stack2.isEmpty())
+                stack1.add(stack2.pop());
+        }
+        return stack1.peek();
     }
 
     /**
      * Returns whether the queue is empty.
      */
     public boolean empty() {
-		return stack1.isEmpty() && stack2.isEmpty();
+        return stack1.isEmpty() && stack2.isEmpty();
     }
 }
 

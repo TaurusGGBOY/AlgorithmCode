@@ -1,6 +1,6 @@
-// л╚Ё╓ак
+// л╚О©╫О©╫О©╫О©╫
 class Solution {
-	public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
+    public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
 
-	}
+    }
 }

@@ -5,24 +5,23 @@ class Solution {
     public int[] sortByBits(int[] arr) {
         Comparator cmp = new Cmp();
         Integer[] temp = new Integer[arr.length];
-        for (int i = 0; i < arr.length;i++) {
+        for (int i = 0; i < arr.length; i++) {
             temp[i] = arr[i];
         }
         Arrays.sort(temp, cmp);
-        for(int i=0;i<arr.length;i++)
-        {
-            arr[i]=temp[i];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = temp[i];
         }
         return arr;
     }
 
-    class Cmp implements Comparator<Integer>{
+    class Cmp implements Comparator<Integer> {
         @Override
         public int compare(Integer o1, Integer o2) {
             String os1 = Integer.toBinaryString(o1);
             String os2 = Integer.toBinaryString(o2);
-            int count1=0;
-            int count2=0;
+            int count1 = 0;
+            int count2 = 0;
             for (int i = 0; i < os1.length(); i++) {
                 count1 += os1.charAt(i) == '1' ? 1 : 0;
             }

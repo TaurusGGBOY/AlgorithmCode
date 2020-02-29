@@ -6,32 +6,32 @@ import javax.swing.tree.TreeNode;
  */
 class Solution {
 
-	public void flatten(TreeNode root) {
-		dfs(root);
-		return;
-	}
+    public void flatten(TreeNode root) {
+        dfs(root);
+        return;
+    }
 
-	void dfs(TreeNode node) {
-		if (node == null)
-			return;
-		TreeNode right = node.right;
-		TreeNode rightest = getRightest(node.left);
-		if (rightest != null) {
-			node.right = node.left;
-			rightest.right = right;
-			node.left = null;
-		}
-		dfs(node.right);
-	}
+    void dfs(TreeNode node) {
+        if (node == null)
+            return;
+        TreeNode right = node.right;
+        TreeNode rightest = getRightest(node.left);
+        if (rightest != null) {
+            node.right = node.left;
+            rightest.right = right;
+            node.left = null;
+        }
+        dfs(node.right);
+    }
 
-	TreeNode getRightest(TreeNode node) {
-		if (node == null)
-			return null;
-		TreeNode temp = node;
+    TreeNode getRightest(TreeNode node) {
+        if (node == null)
+            return null;
+        TreeNode temp = node;
 
-		while (temp.right != null) {
-			temp = temp.right;
-		}
-		return temp;
-	}
+        while (temp.right != null) {
+            temp = temp.right;
+        }
+        return temp;
+    }
 }

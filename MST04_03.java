@@ -7,6 +7,7 @@
  * TreeNode(int x) { val = x; }
  * }
  */
+
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Vector;
@@ -14,9 +15,9 @@ import java.util.Vector;
 /**
  * Definition for singly-linked list.
  * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
+ * int val;
+ * ListNode next;
+ * ListNode(int x) { val = x; }
  * }
  */
 class Solution {
@@ -37,8 +38,8 @@ class Solution {
                 queue.add(node.right);
             listNode.next = null;
             vector.add(listNode);
-            for (int i = 0; i < size-1; i++) {
-               node = queue.poll();
+            for (int i = 0; i < size - 1; i++) {
+                node = queue.poll();
                 ListNode newNode = new ListNode(node.val);
                 newNode.next = null;
                 listNode.next = newNode;

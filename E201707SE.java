@@ -65,31 +65,27 @@ import java.util.Scanner;
 //	// ¾ØÐÎ¸²¸ÇÃæ»ý
 //
 //}
-public class E201707SE
-{
-	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
+public class E201707SE {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-		double num = scanner.nextDouble();
-		if(num==0)
-		{
-			System.out.println("00-00-00-00-00-00-00-00");
-			return;
-		}
-		if(num==-0)
-		{
-			System.out.println("80-00-00-00-00-00-00-00");
-			return;
-		}
-		String string = Long.toHexString(Double.doubleToLongBits(num)).toUpperCase();
-		StringBuilder stringBuilder = new StringBuilder();
-		for(int i=0;i<string.length()/2;i++)
-		{
-			stringBuilder.append(string.charAt(2*i));
-			stringBuilder.append(string.charAt(2*i+1));
-			stringBuilder.append('-');
-		}
-		System.out.println(stringBuilder.toString().substring(0,stringBuilder.length()-1));
+        double num = scanner.nextDouble();
+        if (num == 0) {
+            System.out.println("00-00-00-00-00-00-00-00");
+            return;
+        }
+        if (num == -0) {
+            System.out.println("80-00-00-00-00-00-00-00");
+            return;
+        }
+        String string = Long.toHexString(Double.doubleToLongBits(num)).toUpperCase();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < string.length() / 2; i++) {
+            stringBuilder.append(string.charAt(2 * i));
+            stringBuilder.append(string.charAt(2 * i + 1));
+            stringBuilder.append('-');
+        }
+        System.out.println(stringBuilder.toString().substring(0, stringBuilder.length() - 1));
 
-	}
+    }
 }

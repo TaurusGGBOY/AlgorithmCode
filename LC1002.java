@@ -20,7 +20,7 @@ class Solution {
         //System.out.println(last.toString());
         List<String> list = new LinkedList<>();
         for (int i = 0; i < 26; i++) {
-            if(last[i]==Integer.MAX_VALUE)
+            if (last[i] == Integer.MAX_VALUE)
                 continue;
             for (int j = 0; j < last[i]; j++) {
                 list.add(String.valueOf((char) (i + 'a')));

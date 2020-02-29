@@ -4,6 +4,7 @@ import java.util.Set;
 
 class Solution {
     Set<Integer> set = new HashSet<>();
+
     public int findRepeatNumber(int[] nums) {
         int[] temp = new int[nums.length];
         for (int num : nums) {

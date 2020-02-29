@@ -7,10 +7,9 @@ class Solution {
             return null;
         if (nums.length == 0)
             return nums;
-        if(nums.length==1)
+        if (nums.length == 1)
             return nums;
-        if(nums.length==2)
-        {
+        if (nums.length == 2) {
             int[] temp = new int[1];
             temp[0] = Math.max(nums[0], nums[1]);
             return temp;

@@ -1,10 +1,10 @@
 class Solution {
-	public int minTimeToVisitAllPoints(int[][] points) {
-		int answer = 0, temp;
-		for (int i = 0; i < points.length - 1; i++) {
-			temp = Math.max(Math.abs(points[i + 1][0] - points[i][0]), Math.abs(points[i + 1][1] - points[i][1])); // Á½µãÖ®¼äºá×ø±êºÍ×Ý×ø±ê·Ö±ðÏà¼õ,ÔÙÈ¡¾ø¶ÔÖµ,ËùÐèÒªµÄÊ±¼ä¾ÍÊÇÆäÖÐµÄ×î´óÖµ,
-			answer += temp; // ±éÀúËùÓÐÊý×éµþ¼ÓÊ±¼ä
-		}
-		return answer;
-	}
+    public int minTimeToVisitAllPoints(int[][] points) {
+        int answer = 0, temp;
+        for (int i = 0; i < points.length - 1; i++) {
+            temp = Math.max(Math.abs(points[i + 1][0] - points[i][0]), Math.abs(points[i + 1][1] - points[i][1])); // ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Öµ,ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½Öµ,
+            answer += temp; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+        }
+        return answer;
+    }
 }

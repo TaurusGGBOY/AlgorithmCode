@@ -14,7 +14,7 @@ class MinStack {
         cap = 100000;
         a = new int[cap];
         point = 0;
-       stack.add(Integer.MAX_VALUE);
+        stack.add(Integer.MAX_VALUE);
     }
 
     public void push(int x) {
@@ -25,17 +25,17 @@ class MinStack {
         }
         if (x <= stack.peek()) {
 
-			stack.add(x);
+            stack.add(x);
         }
 
         a[point++] = x;
     }
 
     public void pop() {
-		if (a[point - 1] == stack.peek()) {
-			stack.pop();
-		}
-		point--;
+        if (a[point - 1] == stack.peek()) {
+            stack.pop();
+        }
+        point--;
 
     }
 
@@ -44,7 +44,7 @@ class MinStack {
     }
 
     public int getMin() {
-		return stack.peek();
+        return stack.peek();
     }
 }
 

@@ -5,83 +5,83 @@ import java.util.Scanner;
 import java.util.Vector;
 
 public class Main {
-	static public void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		Map<Integer, Vector<Integer>> map = new HashMap<Integer, Vector<Integer>>();
+    static public void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Map<Integer, Vector<Integer>> map = new HashMap<Integer, Vector<Integer>>();
 
-		int n = scanner.nextInt();
-		int t = n;
-		while (t-- > 0) {
-			int x = scanner.nextInt();
-			int y = scanner.nextInt();
-			Vector<Integer> set = map.get(x);
-			if (set == null)
-				set = new Vector<>();
-			set.add(y);
-			map.put(x, set);
-		}
-		int claster = 0;
+        int n = scanner.nextInt();
+        int t = n;
+        while (t-- > 0) {
+            int x = scanner.nextInt();
+            int y = scanner.nextInt();
+            Vector<Integer> set = map.get(x);
+            if (set == null)
+                set = new Vector<>();
+            set.add(y);
+            map.put(x, set);
+        }
+        int claster = 0;
 
-		for (int x : map.keySet()) {
-			Vector<Integer> set = map.get(x);
-			Iterator<Integer> iterator = set.iterator();
-			while (iterator.hasNext()) {
-				int y = iterator.next();
-				for (int x1 : map.keySet()) {
-					// System.out.print("±éÀú");
-					// System.out.print(x);
-					// System.out.print(" ");
-					// System.out.print(y);
-					// System.out.print(" ");
-					// System.out.print(x1);
-					//
-					// System.out.println(" ");
-					Vector<Integer> set1 = map.get(x1);
-					if (x == x1) {
-						claster += set.size();
-						continue;
-					}
-					if (set1.contains(y - (x - x1))) {
-						// System.out.print("µÚÒ»ÖÖ");
-						// System.out.print(x);
-						// System.out.print(" ");
-						// System.out.print(y);
-						// System.out.print(" ");
-						// System.out.print(x1);
-						// System.out.print(" ");
-						// System.out.print(y - (x - x1));
-						// System.out.println(" ");
-						claster++;
-					}
-					if (set1.contains(y + (x - x1))) {
-						// System.out.print("µÚ¶þÖÖ");
-						// System.out.print(x);
-						// System.out.print(" ");
-						// System.out.print(y);
-						// System.out.print(" ");
-						// System.out.print(x1);
-						// System.out.print(" ");
-						// System.out.print(y + (x - x1));
-						// System.out.println(" ");
-						claster++;
-					}
-					if (set1.contains(y)) {
-						// System.out.print("µÚÈýÖÖ");
-						// System.out.print(x);
-						// System.out.print(" ");
-						// System.out.print(y);
-						// System.out.print(" ");
-						// System.out.print(x1);
-						// System.out.print(" ");
-						// System.out.print(y);
-						// System.out.println(" ");
-						claster++;
-					}
-				}
-			}
-		}
-		// System.out.println(claster);
-		System.out.println((claster - n) / 2);
+        for (int x : map.keySet()) {
+            Vector<Integer> set = map.get(x);
+            Iterator<Integer> iterator = set.iterator();
+            while (iterator.hasNext()) {
+                int y = iterator.next();
+                for (int x1 : map.keySet()) {
+                    // System.out.print("ï¿½ï¿½ï¿½ï¿½");
+                    // System.out.print(x);
+                    // System.out.print(" ");
+                    // System.out.print(y);
+                    // System.out.print(" ");
+                    // System.out.print(x1);
+                    //
+                    // System.out.println(" ");
+                    Vector<Integer> set1 = map.get(x1);
+                    if (x == x1) {
+                        claster += set.size();
+                        continue;
+                    }
+                    if (set1.contains(y - (x - x1))) {
+                        // System.out.print("ï¿½ï¿½Ò»ï¿½ï¿½");
+                        // System.out.print(x);
+                        // System.out.print(" ");
+                        // System.out.print(y);
+                        // System.out.print(" ");
+                        // System.out.print(x1);
+                        // System.out.print(" ");
+                        // System.out.print(y - (x - x1));
+                        // System.out.println(" ");
+                        claster++;
+                    }
+                    if (set1.contains(y + (x - x1))) {
+                        // System.out.print("ï¿½Ú¶ï¿½ï¿½ï¿½");
+                        // System.out.print(x);
+                        // System.out.print(" ");
+                        // System.out.print(y);
+                        // System.out.print(" ");
+                        // System.out.print(x1);
+                        // System.out.print(" ");
+                        // System.out.print(y + (x - x1));
+                        // System.out.println(" ");
+                        claster++;
+                    }
+                    if (set1.contains(y)) {
+                        // System.out.print("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+                        // System.out.print(x);
+                        // System.out.print(" ");
+                        // System.out.print(y);
+                        // System.out.print(" ");
+                        // System.out.print(x1);
+                        // System.out.print(" ");
+                        // System.out.print(y);
+                        // System.out.println(" ");
+                        claster++;
+                    }
+                }
+            }
+        }
+        // System.out.println(claster);
+        System.out.println((claster - n) / 2);
 
-	}
+    }
 }

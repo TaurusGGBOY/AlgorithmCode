@@ -14,9 +14,9 @@ class Node {
 */
 class Solution {
     public Node copyRandomList(Node head) {
-        if(head==null)
+        if (head == null)
             reture null;
-        if(head.next==null&&head.random==null)
+        if (head.next == null && head.random == null)
             return head;
 
     }

@@ -1,5 +1,5 @@
 public class Solution {
-	public String replaceSpace(StringBuffer str) {
-		return str.toString().replace(" ", "%20");
-	}
+    public String replaceSpace(StringBuffer str) {
+        return str.toString().replace(" ", "%20");
+    }
 }

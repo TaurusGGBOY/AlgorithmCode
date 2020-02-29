@@ -1,16 +1,16 @@
 class Solution {
-	public int[] productExceptSelf(int[] nums) {
-		int[] res = new int[nums.length];
-		int k = 1;
-		for (int i = 0; i < res.length; i++) {
-			res[i] = k;
-			k = k * nums[i]; // ´ËÊ±Êý×é´æ´¢µÄÊÇ³ýÈ¥µ±Ç°ÔªËØ×ó±ßµÄÔªËØ³Ë»ý
-		}
-		k = 1;
-		for (int i = res.length - 1; i >= 0; i--) {
-			res[i] *= k; // kÎª¸ÃÊýÓÒ±ßµÄ³Ë»ý¡£
-			k *= nums[i]; // ´ËÊ±Êý×éµÈÓÚ×ó±ßµÄ * ¸ÃÊýÓÒ±ßµÄ¡£
-		}
-		return res;
-	}
+    public int[] productExceptSelf(int[] nums) {
+        int[] res = new int[nums.length];
+        int k = 1;
+        for (int i = 0; i < res.length; i++) {
+            res[i] = k;
+            k = k * nums[i]; // ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½æ´¢ï¿½ï¿½ï¿½Ç³ï¿½È¥ï¿½ï¿½Ç°Ôªï¿½ï¿½ï¿½ï¿½ßµï¿½Ôªï¿½Ø³Ë»ï¿½
+        }
+        k = 1;
+        for (int i = res.length - 1; i >= 0; i--) {
+            res[i] *= k; // kÎªï¿½ï¿½ï¿½ï¿½ï¿½Ò±ßµÄ³Ë»ï¿½ï¿½ï¿½
+            k *= nums[i]; // ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½ * ï¿½ï¿½ï¿½ï¿½ï¿½Ò±ßµÄ¡ï¿½
+        }
+        return res;
+    }
 }

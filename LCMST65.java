@@ -21,11 +21,10 @@ class Solution {
             bstr = stringBuilder.toString();
         }
         StringBuilder stringBuilder = new StringBuilder();
-        int c=0;
-        for(int i=astr.length()-1;i>=0;i++)
-		{
+        int c = 0;
+        for (int i = astr.length() - 1; i >= 0; i++) {
 
-		}
-		Queue
+        }
+        Queue
     }
 }

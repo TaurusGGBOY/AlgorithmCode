@@ -3,6 +3,7 @@ import java.util.Map;
 
 class WordsFrequency {
     Map<String, Integer> map;
+
     public WordsFrequency(String[] book) {
         map = new HashMap<>();
         for (String string : book) {
@@ -18,9 +19,7 @@ class WordsFrequency {
 
         try {
             return map.get(word);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return 0;
         }
     }

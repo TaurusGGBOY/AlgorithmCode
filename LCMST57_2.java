@@ -11,25 +11,21 @@ class Solution {
         Deque<Integer> queue = new LinkedList<>();
         List<int[]> list = new LinkedList<>();
         int[] temp;
-        int row=0;
+        int row = 0;
         for (int i = 1; i <= target / 2; i++) {
-            while(r<=target/2+1)
-            {
+            while (r <= target / 2 + 1) {
                 queue.add(r);
-                sum+=r;
+                sum += r;
                 r++;
-                while(sum>target)
-                {
-                    sum-=l;
+                while (sum > target) {
+                    sum -= l;
                     l++;
                     queue.pollFirst();
                 }
-                if(sum==target)
-                {
-                    temp = new int[r-l];
-                    for(int j=l;j<=r-1;j++)
-                    {
-                        temp[j-l]=j;
+                if (sum == target) {
+                    temp = new int[r - l];
+                    for (int j = l; j <= r - 1; j++) {
+                        temp[j - l] = j;
                     }
                     list.add(temp);
                     row++;

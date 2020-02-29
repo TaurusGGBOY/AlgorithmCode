@@ -2,9 +2,9 @@ import java.util.Scanner;
 
 public class Main {
 
-	static public void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		int t = scanner.nextInt();
-		// ÀÁµÃÐ´
-	}
+    static public void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int t = scanner.nextInt();
+        // ï¿½ï¿½ï¿½ï¿½Ð´
+    }
 }

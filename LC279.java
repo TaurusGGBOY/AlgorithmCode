@@ -1,5 +1,5 @@
 class Solution {
-	public int numSquares(int n) {
+    public int numSquares(int n) {
 
-	}
+    }
 }

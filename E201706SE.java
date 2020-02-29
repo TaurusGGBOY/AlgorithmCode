@@ -2,10 +2,10 @@ import java.util.Scanner;
 
 public class Main {
 
-	static public void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
+    static public void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-		// ¾ØÐÎ¸²¸ÇÃæ»ý
-	}
+        // ï¿½ï¿½ï¿½Î¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    }
 
 }

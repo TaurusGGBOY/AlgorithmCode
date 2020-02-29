@@ -5,14 +5,13 @@ import javax.swing.tree.TreeNode;
  * left; TreeNode right; TreeNode(int x) { val = x; } }
  */
 class Solution {
-	int money
+    int money
 
-	public int rob(TreeNode root) {
+    public int rob(TreeNode root) {
         dfs
     }
 
-	int dfs(TreeNode node)
-	{
-		if(node)
-	}
+    int dfs(TreeNode node) {
+        if (node)
+    }
 }
