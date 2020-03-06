@@ -1,43 +1,28 @@
-    import java.util.ArrayList;
-    import java.util.List;
-    import java.util.Stack;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
-    class Solution {
-        List<String> returnList;
-        StringBuilder stack;
-        int left = 0;
-        int right = 0;
-
-        public List<String> generateParenthesis(int n) {
-            returnList = new ArrayList<>();
-            stack = new StringBuilder();
-            if (n == 0)
-                return returnList;
-            bfs(n, 0, 0, 1);
-            return returnList;
+class Solution {
+    public int[] sortArrayByParityII(int[] A) {
+        int[] ji = new int[A.length / 2];
+        int[] ou = new int[A.length / 2];
+        int jiIndex=0;
+        int ouIndex=0;
+        for (int i = 0; i < A.length; i++) {
+            if(A[i]%2==0)
+                ou[ouIndex++]=A[i];
+            else
+                ji[jiIndex++]=A[i];
         }
-
-        public void bfs(int n, int left, int right, int isLeft) {
-            if (isLeft == 1) {
-                left++;
-                stack.append('(');
-            } else {
-                right++;
-                stack.append(')');
-            }
-            if (left > n || right > n) {
-                stack.deleteCharAt(stack.length() - 1);
-                return;
-            }
-            if (left == n && right == n) {
-                returnList.add(stack.toString());
-            }
-            if (left < right) {
-                stack.deleteCharAt(stack.length() - 1);
-                return;
-            }
-            bfs(n, left, right, 1);
-            bfs(n, left, right, 0);
-            stack.deleteCharAt(stack.length() - 1);
+        Arrays.sort(ji);
+        Arrays.sort(ou);
+        jiIndex=0;
+        ouIndex=0;
+        for (int i = 0; i < A.length; i++) {
+            if(i%2==0)
+                A[i] = ou[ouIndex++];
+            else
+                A[i] = ji[jiIndex++];
         }
+        return A;
     }
+}
