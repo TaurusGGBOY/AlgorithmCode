@@ -1,35 +1,10 @@
-
 class Solution {
-    public String sortString(String s) {
-        int[] times = new int[26];
-        for(int i=0;i<s.length();i++)
+    public int findString(String[] words, String s) {
+        for(int i=0;i<words.length;i++)
         {
-            times[s.charAt(i)-'a']++;
+            if(s.equals(words[i]))
+                return i;
         }
-       int flag =0;
-        StringBuilder stringBuilder = new StringBuilder();
-        while (flag == 0) {
-            flag=1;
-            for(int i=0;i<26;i++)
-            {
-                if(times[i]!=0)
-                {
-                    times[i]--;
-                    stringBuilder.append((char) ('a' + i));
-                    flag=0;
-                }
-
-            }
-            for(int i=25;i>=0;i--)
-            {
-                if(times[i]!=0)
-                {
-                    times[i]--;
-                    stringBuilder.append((char) ('a' + i));
-                    flag=0;
-                }
-            }
-        }
-        return stringBuilder.toString();
+        return -1;
     }
 }

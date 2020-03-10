@@ -1,11 +1,26 @@
-public class Solution {
-    // you need to treat n as an unsigned value
-    public int hammingWeight(int n) {
-        String temp = Integer.toBinaryString(n);
-        int count = 0;
-        for (int i = 0; i < temp.length(); i++) {
-            count += temp.charAt(i) == '1' ? 1 : 0;
+class Solution {
+    public int[] relativeSortArray(int[] arr1, int[] arr2) {
+        int[] oneArray = new int[1001];
+        int[] result = new int[arr1.length];
+        for(int num:arr1)
+            oneArray[num]++;
+        int index=0;
+        for(int i=0;i<arr2.length;i++)
+        {
+            int temp =oneArray[arr2[i]];
+            for(int j=0;j<temp;j++)
+            {
+                result[index++]=arr2[i];
+                oneArray[arr2[i]]=0;
+            }
         }
-        return count;
+        for(int i=0;i<1001;i++)
+        {
+            for(int j=0;j<oneArray[i];j++)
+            {
+                result[index++]=i;
+            }
+        }
+        return result;
     }
 }
