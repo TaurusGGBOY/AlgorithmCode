@@ -8,13 +8,9 @@ class Solution {
                 row++;
                 score=100;
             }
-            score-=widths[i];
+            score-=widths[S.charAt(i)-'a'];
         }
-        score = 100 - score;
-        int[] arr = new int[2];
-        arr[0]=row;
-        arr[1] = score;
-        return arr;
+        return new int[]{row,100-score};
     }
 
 }

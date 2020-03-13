@@ -1,25 +1,29 @@
 class Solution {
-    public int maxIncreaseKeepingSkyline(int[][] grid) {
-        int[] hirachy = new int[grid.length];
-        int[] vericle = new int[grid[0].length];
-        int count = 0;
-        int countAfter = 0;
+    public boolean isToeplitzMatrix(int[][] matrix) {
+        int x;
+        int y;
+        for(int i=0;i<matrix[0].length;i++)
+        {
+            int temp = matrix[0][i];
+            x=1;
+            y=i+1;
 
-        for (int i = 0; i < hirachy.length; i++) {
-            for (int j = 0; j < vericle.length; j++) {
-                hirachy[i] = Math.max(hirachy[i], grid[i][j]);
-                vericle[j] = Math.max(vericle[j], grid[i][j]);
+            while(y<matrix[0].length&&x<matrix.length)
+            {
+                if(matrix[x++][y++]!=temp)
+                    return false;
             }
         }
-
-        for (int i = 0; i < hirachy.length; i++) {
-            for (int j = 0; j < vericle.length; j++) {
-                count += grid[i][j];
-
-                grid[i][j] = Math.min(hirachy[i], vericle[j]);
-                countAfter += grid[i][j];
+        for (int i = 1; i < matrix.length; i++) {
+            int temp = matrix[i][0];
+            x=i+1;
+            y=1;
+            while(y<matrix[0].length&&x<matrix.length)
+            {
+                if(matrix[x++][y++]!=temp)
+                    return false;
             }
         }
-        return countAfter - count;
+        return true;
     }
 }
