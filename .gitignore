@@ -30,14 +30,5 @@
 *.exe
 *.out
 *.app
-/Main.class
-/LC1227.class
-/Solution.class
-/E201707SE.class
-/Trie.class
-/TreeNode.class
-/ListNode.class
-/TrieNode.class
-/TrieNodeList.class
-/RecentCounter.class
-/Codec.class
+
+.idea
