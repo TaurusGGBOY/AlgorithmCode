@@ -8,20 +8,19 @@ class Solution {
 
   public int sumRootToLeaf(TreeNode root) {
     if (root == null) return 0;
-    if (root.left == null && root.right == null) return 1;
-    bfs(root, 1);
+    bfs(root);
 
     return sum;
   }
 
-  void bfs(TreeNode node, int num) {
+  void bfs(TreeNode node) {
     if (node == null) return;
-    stringBuilder.append(num);
+    stringBuilder.append(node.val);
     if (node.left == null && node.right == null) {
       sum += Integer.parseInt(stringBuilder.toString(), 2);
     }
-    bfs(node.left, 0);
-    bfs(node.right, 1);
+    bfs(node.left);
+    bfs(node.right);
     stringBuilder.deleteCharAt(stringBuilder.length() - 1);
   }
 }
