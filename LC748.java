@@ -1,57 +1,48 @@
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class Solution {
-    public int[] numSmallerByFrequency(String[] queries, String[] words) {
-        int[] lens = new int[words.length];
-        int[] times;
-        int j=0;
-        int temp=0;
-        for(int i=0;i<words.length;i++)
-        {
-            times = new int[26];
-
-            for(j=0;j<words[i].length();j++)
-            {
-                times[words[i].charAt(j)-'a']++;
-            }
-
-            for(j=0;j<26;j++)
-            {
-                if(times[j]!=0)
-                {
-                    lens[i]=times[j];
-                   break;
-                }
-            }
-        }
-        Arrays.sort(lens);
-        int[] results = new int[queries.length];
-        int tempSum;
-        for(int i=0;i<queries.length;i++)
-        {
-            tempSum=0;
-            times = new int[26];
-
-            for(j=0;j<queries[i].length();j++)
-            {
-                times[queries[i].charAt(j)-'a']++;
-            }
-
-            for(j=0;j<26;j++)
-            {
-                if(times[j]!=0)
-                {
-                    break;
-                }
-            }
-            for(int k=0;k<lens.length;k++)
-            {
-                if(times[j]<lens[k])
-                    tempSum++;
-            }
-            results[i] = tempSum;
-        }
-        return results;
+  public String shortestCompletingWord(String licensePlate, String[] words) {
+    int[] temp1 = new int[26];
+    int[] temp2 = new int[26];
+    int[] temp3 = new int[26];
+    int flag = 0;
+    int len = Integer.MAX_VALUE;
+    Queue<String> queue = new LinkedList<>();
+    licensePlate = licensePlate.toLowerCase();
+    for (int i = 0; i < temp3.length; i++) {
+      try {
+        temp3[licensePlate.charAt(i) - 'a']++;
+      } catch (Exception e) {
+      }
     }
+
+    for (String str : words) {
+      str = str.toLowerCase();
+      temp2 = new int[26];
+      temp1 = new int[26];
+      flag = 0;
+      System.arraycopy(temp3, 0, temp1, 0, temp1.length);
+      for (int i = 0; i < str.length(); i++) {
+        temp2[str.charAt(i) - 'a']++;
+      }
+      for (int i = 0; i < 26; i++) {
+        temp1[i] -= temp2[i];
+        if (temp1[i] > 0) {
+          flag = 1;
+          break;
+        }
+      }
+      if (flag == 0) {
+        if (len > str.length()) {
+          queue.clear();
+          queue.add(str);
+          len = str.length();
+        }
+      }
+    }
+    return queue.isEmpty() ? "" : queue.poll();
+  }
 }
