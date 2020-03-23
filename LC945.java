@@ -1,19 +1,13 @@
-// 不懂 不喜欢这道题
+import java.util.Arrays;
+
 class Solution {
-    public int minDeletionSize(String[] A) {
-        int l = A.length;
-        int n = A[0].length();
-        ArrayList al = new ArrayList();
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < l - 1; j++) {
-                if (A[j].charAt(i) > A[j + 1].charAt(i)) {
-                    al.add(i);
-                    break;
-                }
-            }
-
-        }
-        return al.size();
+  public int minIncrementForUnique(int[] A) {
+    Arrays.sort(A);
+    int sum = 0;
+    for (int i = 0; i < A.length - 1; i++) {
+      sum += A[i + 1] <= A[i] ? A[i] + 1 - A[i + 1] : 0;
+      A[i + 1] = A[i + 1] <= A[i] ? A[i] + 1 : A[i + 1];
     }
-
+    return sum;
+  }
 }
