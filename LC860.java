@@ -1,34 +1,25 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
- */
 class Solution {
-    int flag = 0;
-    TreeNode temp;
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        temp = null;
-        bfs(root,p.val,q.val);
-        return temp;
-    }
-
-    boolean bfs(TreeNode node, int p, int q)
-    {
-        if(node == null||flag==1)
-            return false;
-        boolean me = (node.val==q)||(node.val==p);
-        boolean left = bfs(node.left,p,q);
-        boolean right = bfs(node.right,p,q);
-        if((left&&right)||(left&&me)||(right&&me))
-        {
-            flag=1;
-            temp = node;
+  public boolean lemonadeChange(int[] bills) {
+    int[] moneys = new int[21];
+    for (int i = 0; i < bills.length; i++) {
+      moneys[bills[i]]++;
+      if (bills[i] == 20) {
+        if (moneys[10] != 0) {
+          moneys[10]--;
+          moneys[5]--;
         }
-        return me||left||right;
+        else
+        {
+            moneys[5]-=3;
+        }
+      }
+      else if(bills[i]==10)
+      {
+          moneys[5]--;
+      }
+      if(moneys[5]<0||moneys[10]<0)
+          return false;
     }
-
+    return true;
+  }
 }
