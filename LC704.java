@@ -1,22 +1,16 @@
-// Ê§°Ü
 class Solution {
-  public int surfaceArea(int[][] grid) {
-    int[] square1 = new int[grid.length];
-    int sum = 0;
-    int[] square2 = new int[grid[0].length];
-    for (int i = 0; i < grid.length; i++) {
-      for (int j = 0; j < grid[0].length; j++) {
-        sum += grid[i][j] > 0 ? 1 : 0;
-        if (grid[i][j] > square1[i]) {
-          sum += grid[i][j] - square1[i];
-          square1[i] = grid[i][j];
-        }
-        if (grid[i][j] > square2[j]) {
-          sum += grid[i][j] - square2[j];
-          square2[j] = grid[i][j];
-        }
-      }
+  public int search(int[] nums, int target) {
+    return binSearch(nums, 0, nums.length - 1, target);
+  }
+
+  int binSearch(int[] nums, int left, int right, int target) {
+    if (left > right) return -1;
+    int mid = (left + right) / 2;
+    if (target == nums[mid]) return mid;
+    if (target > nums[mid]) {
+      return binSearch(nums, mid+1, right, target);
+    } else {
+      return binSearch(nums, left, mid-1, target);
     }
-    return 2 * sum;
   }
 }

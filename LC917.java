@@ -1,24 +1,24 @@
-/**
- * Definition for a binary tree node. public class TreeNode { int val; TreeNode
- * left; TreeNode right; TreeNode(int x) { val = x; } }
- */
-//����� �о����ǲ��Ǻܶ�
+import java.util.Stack;
+
 class Solution {
-    int maxHeight = 0;
-
-    public int diameterOfBinaryTree(TreeNode root) {
-        if (root == null)
-            return 0;
-        dfs(root);
-        return maxHeight - 1;
+  public String reverseOnlyLetters(String S) {
+    Stack<Character> stack = new Stack<>();
+    for (int i = 0; i < S.length(); i++) {
+      if ((S.charAt(i) >= 'a' && S.charAt(i) <= 'z')
+          || (S.charAt(i) >= 'A' && S.charAt(i) <= 'Z')) {
+        stack.add(S.charAt(i));
+      }
     }
-
-    int dfs(TreeNode node) {
-        if (node == null)
-            return 0;
-        int left = dfs(node.left);
-        int right = dfs(node.right);
-        maxHeight = Math.max(left + right + 1, maxHeight);
-        return Math.max(left, right) + 1;
+    StringBuilder stringBuilder = new StringBuilder();
+    for (int i = 0; i < S.length(); i++) {
+      if ((S.charAt(i) >= 'a' && S.charAt(i) <= 'z')
+          || (S.charAt(i) >= 'A' && S.charAt(i) <= 'Z')) {
+        stringBuilder.append(stack.pop());
+      } else {
+        stringBuilder.append(S.charAt(i));
+      }
     }
+    return stringBuilder.toString();
+
+  }
 }
