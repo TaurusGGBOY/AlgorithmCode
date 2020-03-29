@@ -1,12 +1,19 @@
 class Solution {
-  public boolean canPermutePalindrome(String s) {
-    int[] alphas = new int[128];
-    for (int i = 0; i < s.length(); i++) alphas[s.charAt(i)]++;
-
-    int ji = 0;
-    for (int i = 0; i < 128; i++) {
-      ji += alphas[i] % 2 == 1 ? 1 : 0;
+  public int tribonacci(int n) {
+    int[] temp  = new int[n+1];
+    if(n==0)
+      return 0;
+    if(n==1)
+      return 1;
+    if(n==2)
+      return 1;
+    temp[0]=0;
+    temp[1]=1;
+    temp[2]=1;
+    for(int i=3;i<=n;i++)
+    {
+      temp[i] = temp[i - 1] + temp[i - 2] + temp[i - 3];
     }
-    return ji <= 1;
+    return temp[n];
   }
 }
