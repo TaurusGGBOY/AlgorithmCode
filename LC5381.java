@@ -1,15 +1,26 @@
-import java.util.Vector;
+import java.util.*;
 
 class Solution {
-  public int[] createTargetArray(int[] nums, int[] index) {
-    Vector<Integer> vector = new Vector<>();
-    for (int i = 0; i < index.length; i++) {
-      vector.insertElementAt(nums[i],index[i]);
+  public int[] processQueries(int[] queries, int m) {
+    LinkedList<Integer> list = new LinkedList<>();
+    List<Integer> result = new ArrayList<>();
+    for(int i=1;i<=m;i++)
+    {
+      list.add(i);
     }
-    int[] res = new int[index.length];
-    for (int i = 0; i < index.length; i++) {
-      res[i] = vector.get(i);
+    for(int query:queries)
+    {
+      int index = list.indexOf(query);
+      result.add(index);
+      int num = list.get(index);
+      list.remove(index);
+      list.addFirst(num);
     }
-    return res;
+    int[] resArr = new int[result.size()];
+    for (int i = 0; i < resArr.length; i++) {
+      resArr[i]=result.get(i);
+    }
+
+    return resArr;
   }
 }
