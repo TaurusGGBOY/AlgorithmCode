@@ -1,37 +1,26 @@
-import javax.swing.tree.TreeNode;
-
-/**
- * Definition for a binary tree node. public class TreeNode { int val; TreeNode
- * left; TreeNode right; TreeNode(int x) { val = x; } }
- */
 class Solution {
-
-    public void flatten(TreeNode root) {
-        dfs(root);
-        return;
-    }
-
-    void dfs(TreeNode node) {
-        if (node == null)
-            return;
-        TreeNode right = node.right;
-        TreeNode rightest = getRightest(node.left);
-        if (rightest != null) {
-            node.right = node.left;
-            rightest.right = right;
-            node.left = null;
+    public int maxArea(int[] height) {
+        int len = height.length;
+        int maxArea = Math.min(height[0],height[len-1])*(len-1);
+        int i=0;
+        int j=height.length-1;
+        int area;
+        int left;
+        int right;
+        while(i<j)
+        {
+            left=height[i];
+            right=height[j];
+            maxArea=Math.max(maxArea,Math.min(left,right)*(j-i));
+            if(left>right)
+            {
+                j--;
+            }
+            else
+            {
+                i++;
+            }
         }
-        dfs(node.right);
-    }
-
-    TreeNode getRightest(TreeNode node) {
-        if (node == null)
-            return null;
-        TreeNode temp = node;
-
-        while (temp.right != null) {
-            temp = temp.right;
-        }
-        return temp;
+        return maxArea;
     }
 }
