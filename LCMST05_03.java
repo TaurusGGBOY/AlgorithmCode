@@ -1,22 +1,29 @@
-// 失败
 class Solution {
     public int reverseBits(int num) {
-        char[] cstr = Integer.toBinaryString(num).toCharArray();
-        int[] dp0 = new int[cstr.length];
-        int[] dp1 = new int[cstr.length];
-
-        int count= 0;
-        int res =0;
-        for(int i=0;i<cstr.length;i++)
-        {
-            if(cstr[i]=='1')
+        if(num==0)
+            return 1;
+        char[] carr = Integer.toBinaryString(num).toCharArray();
+        int[] front = new int[carr.length+2];
+        int[] right = new int[carr.length+2];
+        int left =0;
+        int max=0;
+        for (int i = 1; i < carr.length+1; i++) {
+            if(carr[i-1]=='1')
             {
-                dp[0]++;
+                left++;
             }
             else
             {
-
+                front[i]=left;
+                right[i-left-1]=left;
+                max = Math.max(front[i-left-1]+right[i-left-1]+1,max);
+                left=0;
             }
         }
+        int i =carr.length+1;
+        front[i]=left;
+        right[i-left-1]=left;
+        max = Math.max(front[i-left-1]+right[i-left-1]+1,max);
+        return max;
     }
 }
