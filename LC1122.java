@@ -1,26 +1,32 @@
+import java.util.HashMap;
+import java.util.Map;
+
 class Solution {
-    public int[] relativeSortArray(int[] arr1, int[] arr2) {
-        int[] oneArray = new int[1001];
-        int[] result = new int[arr1.length];
-        for(int num:arr1)
-            oneArray[num]++;
-        int index=0;
-        for(int i=0;i<arr2.length;i++)
-        {
-            int temp =oneArray[arr2[i]];
-            for(int j=0;j<temp;j++)
-            {
-                result[index++]=arr2[i];
-                oneArray[arr2[i]]=0;
+    public int numEquivDominoPairs(int[][] dominoes) {
+        String[] strs = new String[dominoes.length];
+        for (int i = 0; i < dominoes.length; i++) {
+            StringBuilder stringBuilder = new StringBuilder();
+            if (dominoes[i][0] > dominoes[i][1]) {
+                stringBuilder.append(dominoes[i][1]);
+                stringBuilder.append(dominoes[i][0]);
+            } else {
+                stringBuilder.append(dominoes[i][0]);
+                stringBuilder.append(dominoes[i][1]);
             }
+            strs[i] = stringBuilder.toString();
         }
-        for(int i=0;i<1001;i++)
+        Map<String, Integer> map = new HashMap<>();
+        for (String str : strs) {
+            map.merge(str, 1, (oldval, newval) -> oldval + newval);
+        }
+
+        int count=0;
+        // 1+2+..+sum-1
+        for (int sum:map.values())
         {
-            for(int j=0;j<oneArray[i];j++)
-            {
-                result[index++]=i;
-            }
+            count += sum*(sum-1)/2;
         }
-        return result;
+        return count;
     }
+
 }

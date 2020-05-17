@@ -1,0 +1,40 @@
+class Solution {
+    public boolean checkPossibility(int[] nums) {
+        int count=0;
+        for(int i=0;i<nums.length-1;i++)
+        {
+            if(nums[i]>nums[i+1])
+            {
+                if(count==1)
+                {
+                    return false;
+                }
+                if(i==0)
+                {
+                    nums[i]=nums[i+1]-1;
+                    count++;
+                    continue;
+                }
+                if(pd(nums[i-1],nums[i+1]))
+                {
+                    count++;
+                    nums[i]=nums[i-1];
+                }else{
+                    count++;
+                    nums[i+1]=nums[i];
+                }
+            }
+        }
+        return true;
+    }
+    public boolean pd(int a,int b)//判断i-1 与 i+1大小
+    {
+        if(a>b)
+        {
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+}
