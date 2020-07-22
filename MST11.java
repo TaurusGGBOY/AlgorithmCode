@@ -1,8 +1,8 @@
+import java.util.Arrays;
+
 class Solution {
     public int minArray(int[] numbers) {
-        int min =numbers[0];
-        for(int num:numbers)
-            min = Math.min(num, min);
-        return min;
+        Arrays.sort(numbers);
+        return numbers[0];
     }
 }
