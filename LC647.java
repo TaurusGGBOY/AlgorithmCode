@@ -1,22 +1,18 @@
-// dp����
-
 class Solution {
     public int countSubstrings(String s) {
-        int count = 0;
-        for (int i = 1; i <= s.length(); i++) {
-            for (int j = 0; j < s.length() - i + 1; j++) {
-                if (judge(s.substring(j, j + i)))
-                    count++;
+        int n = s.length();
+        int res = 0;
+        for(int i =0;i<2*n-1;i++)
+        {
+            int l  = i/2;
+            int r = i/2+i%2;
+            while(l>=0&&r<n&&s.charAt(l)==s.charAt(r))
+            {
+                l--;
+                r++;
+                res++;
             }
         }
-        return count;
-    }
-
-    public boolean judge(String str) {
-        for (int i = 0; i < str.length() / 2; i++) {
-            if (str.charAt(i) != str.charAt(str.length() - i - 1))
-                return false;
-        }
-        return true;
+        return res;
     }
 }
