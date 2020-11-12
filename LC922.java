@@ -3,25 +3,19 @@ import java.util.Arrays;
 
 class Solution {
     public int[] sortArrayByParityII(int[] A) {
-        int[] ji = new int[A.length / 2];
-        int[] ou = new int[A.length / 2];
-        int jiIndex=0;
-        int ouIndex=0;
-        for (int i = 0; i < A.length; i++) {
-            if(A[i]%2==0)
-                ou[ouIndex++]=A[i];
-            else
-                ji[jiIndex++]=A[i];
-        }
-        Arrays.sort(ji);
-        Arrays.sort(ou);
-        jiIndex=0;
-        ouIndex=0;
-        for (int i = 0; i < A.length; i++) {
-            if(i%2==0)
-                A[i] = ou[ouIndex++];
-            else
-                A[i] = ji[jiIndex++];
+        int i=0;
+        int j =A.length-1;
+        for (; i < A.length; i+=2) {
+            if(A[i]%2==1)
+            {
+                while(A[j]%2==1)
+                {
+                    j -= 2;
+                }
+                int temp = A[i];
+                A[i] = A[j];
+                A[j] = temp;
+            }
         }
         return A;
     }
