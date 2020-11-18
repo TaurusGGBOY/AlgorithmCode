@@ -1,22 +1,45 @@
-import java.lang.reflect.Array;
-import java.util.Arrays;
-
 class Solution {
-    public int[] sortArrayByParityII(int[] A) {
-        int i=0;
-        int j =A.length-1;
-        for (; i < A.length; i+=2) {
-            if(A[i]%2==1)
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int gasN = 0;
+        int flag=0;
+        for(int i =0;i<gas.length;i++)
+        {
+            flag=1;
+            gasN+=gas[i]-cost[i];
+            if(gasN<0)
             {
-                while(A[j]%2==1)
-                {
-                    j -= 2;
-                }
-                int temp = A[i];
-                A[i] = A[j];
-                A[j] = temp;
+                flag=0;
+                break;
             }
         }
-        return A;
+        if(flag==1)
+            return 0;
+        flag=0;
+        for(int i =1;i<gas.length;i++)
+        {
+            gasN = 0;
+            flag=i;
+            for(int j=i;j<gas.length;j++)
+            {
+                gasN+=gas[j]-cost[j];
+                if(gasN<0)
+                {
+                    flag=0;
+                    break;
+                }
+            }
+            for(int j=0;j<i;j++)
+            {
+                gasN+=gas[j]-cost[j];
+                if(gasN<0)
+                {
+                    flag=0;
+                    break;
+                }
+            }
+            if(flag==i)
+                break;
+        }
+        return flag==0?-1:flag;
     }
 }
