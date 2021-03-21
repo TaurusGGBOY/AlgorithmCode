@@ -34,5 +34,6 @@ class Solution {
             ans = Math.max(ans, (right[i] - left[i] - 1) * nums[i]);
         }
         return ans;
+        
     }
 }
