@@ -8,14 +8,14 @@ class Solution {
 
     public List<String> generateParenthesis(int n) {
         dfs(1, n);
-        return list;
+        return set;
     }
 
     private void dfs(int depth, int n) {
         // System.out.println(stringBuilder.toString());
         if (depth == 2 * n + 1) {
             if (leftCount == 0)
-                list.add(stringBuilder.toString());
+                set.add(stringBuilder.toString());
             return;
         }
         if (leftCount < n) {

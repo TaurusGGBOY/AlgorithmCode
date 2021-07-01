@@ -1,29 +1,33 @@
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- * int val;
- * ListNode next;
- * ListNode(int x) { val = x; }
- * }
- */
-class JZ38 {
-    public ListNode removeDuplicateNodes(ListNode head) {
-        int[] a = new int[20001];
-        if (head == null)
-            return null;
-        ListNode temp = head.next;
-        ListNode pre = head;
-        a[pre.val]++;
-        while (temp != null) {
-            if (a[temp.val] != 0) {
-                pre.next = temp.next;
-                temp = temp.next;
+import java.util.HashSet;
+import java.util.Set;
+
+class Solution {
+    Set<String> set;
+    boolean[] visit;
+
+    public String[] permutation(String s) {
+        set = new HashSet<>();
+        visit = new boolean[s.length()];
+        char[] chars = s.toCharArray();
+        StringBuilder stringBuilder = new StringBuilder();
+        backtrack(chars, 0, stringBuilder);
+        return set.stream().toArray(String[]::new);
+    }
+
+    public void backtrack(char[] chars, int i, StringBuilder stringBuilder) {
+        if (i == chars.length) {
+            set.add(stringBuilder.toString());
+            return;
+        }
+        for (int j = 0; j < chars.length; j++) {
+            if (visit[j]) {
                 continue;
             }
-            a[temp.val]++;
-            pre = pre.next;
-            temp = temp.next;
+            visit[j] =true;
+            stringBuilder.append(chars[j]);
+            backtrack(chars, i + 1, stringBuilder);
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+            visit[j] = false;
         }
-        return head;
     }
 }
