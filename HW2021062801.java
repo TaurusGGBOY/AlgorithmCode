@@ -1,32 +1,27 @@
-class Solution {
-    public boolean findRotation(int[][] mat, int[][] target) {
-        int[][] temp = mat;
-        for (int i = 0; i < 4; i++) {
-            temp = change(temp);
-            int flag = 0;
-            for (int j = 0; j < temp.length; j++) {
-                for (int k = 0; k < temp[0].length; k++) {
-                    if (temp[j][k] != target[j][k]) {
-                        flag = 1;
-                        break;
-                    }
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Scanner;
+
+class Solution{
+    public static void main(String[] args){
+        Scanner scanner = new Scanner(System.in);
+        String s = scanner.nextLine();
+        char[] chars = s.toCharArray();
+        Deque<Character> stack = new ArrayDeque<>();
+        for (char c : chars) {
+            if (stack.isEmpty()) {
+                stack.offer(c);
+            }else{
+                if (c == stack.peek()) {
+                    continue;
+                } else if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+                    stack.offer(c);
+                }else{
+                    stack.clear();
+                    break;
                 }
             }
-            if (flag == 0) {
-                return true;
-            }
         }
-        return false;
-    }
-
-    public int[][] change(int [][]matrix){
-        int [][]temp=new int[matrix[0].length][matrix.length];
-        int dst=matrix.length-1;
-        for(int i=0;i<matrix.length;i++,dst--){
-            for(int j=0;j<matrix[0].length;j++){
-                temp[j][dst]=matrix[i][j];
-            }
-        }
-        return temp;
+        System.out.println(stack.size());
     }
 }
