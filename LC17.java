@@ -7,12 +7,12 @@ class Solution {
 
     public List<String> letterCombinations(String digits) {
         if (digits.isEmpty())
-            return list;
+            return set;
         for (char num : nums[digits.charAt(0) - '0'].toCharArray()) {
-            list.add(String.valueOf(num));
+            set.add(String.valueOf(num));
         }
         dfs(digits, 1);
-        return list;
+        return set;
     }
 
     void dfs(String digits, int order) {
@@ -20,13 +20,13 @@ class Solution {
             return;
         List<String> newList = new ArrayList<>();
 
-        int len = list.size();
+        int len = set.size();
         for (int i = 0; i < len; i++) {
             for (char num : nums[digits.charAt(order) - '0'].toCharArray()) {
-                newList.add(list.get(i) + num);
+                newList.add(set.get(i) + num);
             }
         }
-        list = newList;
+        set = newList;
         dfs(digits, order + 1);
     }
 }

@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Vector;
 
 /**
@@ -17,15 +15,15 @@ class Solution {
     int minNum = Integer.MAX_VALUE;
     public int getMinimumDifference(TreeNode root) {
         bfs(root);
-        list.sort(new Comparator<Integer>() {
+        set.sort(new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
                 return o1-o2;
             }
         });
-        for(int i=0;i<list.size()-1;i++)
+        for(int i = 0; i< set.size()-1; i++)
         {
-            minNum = Math.min(minNum, Math.abs(list.get(i) - list.get(i+1)));
+            minNum = Math.min(minNum, Math.abs(set.get(i) - set.get(i+1)));
         }
         return minNum;
     }
@@ -34,7 +32,7 @@ class Solution {
     {
         if(node==null)
             return;
-        list.add(node.val);
+        set.add(node.val);
         bfs(node.left);
         bfs(node.right);
     }
