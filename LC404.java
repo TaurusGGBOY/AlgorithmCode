@@ -7,13 +7,13 @@ class Solution {
 
   public int sumOfLeftLeaves(TreeNode root) {
     bfs(root);
-    return sum;
+    return total;
   }
 
   void bfs(TreeNode node) {
     if (node == null) return;
     if (node.left != null) {
-      if (node.left.left == null && node.left.right == null) sum += node.left.val;
+      if (node.left.left == null && node.left.right == null) total += node.left.val;
     }
     bfs(node.left);
     bfs(node.right);

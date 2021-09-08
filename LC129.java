@@ -12,9 +12,9 @@ class Solution {
     int sum;
     public int sumNumbers(TreeNode root) {
         stringBuilder = new StringBuilder();
-        sum =0 ;
+        total =0 ;
         dfs(root);
-        return sum;
+        return total;
     }
     public void dfs(TreeNode node)
     {
@@ -23,7 +23,7 @@ class Solution {
         stringBuilder.append(node.val);
         if(node.left==null&&node.right==null)
         {
-            sum += Integer.parseInt(stringBuilder.toString());
+            total += Integer.parseInt(stringBuilder.toString());
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
             return;
         }

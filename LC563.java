@@ -13,7 +13,7 @@ class Solution {
         if (root == null)
             return 0;
         dfs(root);
-        return sum;
+        return total;
     }
 
     int dfs(TreeNode node) {
@@ -21,7 +21,7 @@ class Solution {
             return 0;
         int left =dfs(node.left);
         int right =dfs(node.right);
-        sum+=Math.abs(left-right);
+        total +=Math.abs(left-right);
         return  left+  right + node.val;
     }
 

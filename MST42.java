@@ -4,11 +4,11 @@ class Solution {
     public int maxSubArray(int[] nums) {
         for(int num:nums)
         {
-            sum+=num;
-            if(sum>max)
-                max=sum;
-            if(sum<0)
-                sum=0;
+            total +=num;
+            if(total >max)
+                max= total;
+            if(total <0)
+                total =0;
 
         }
         return max;

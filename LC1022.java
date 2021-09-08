@@ -10,14 +10,14 @@ class Solution {
     if (root == null) return 0;
     bfs(root);
 
-    return sum;
+    return total;
   }
 
   void bfs(TreeNode node) {
     if (node == null) return;
     stringBuilder.append(node.val);
     if (node.left == null && node.right == null) {
-      sum += Integer.parseInt(stringBuilder.toString(), 2);
+      total += Integer.parseInt(stringBuilder.toString(), 2);
     }
     bfs(node.left);
     bfs(node.right);
