@@ -4,31 +4,32 @@ class Solution {
         return nums;
     }
 
-    void quickSort(int[] nums, int l, int r) {
-        if (l < r) {
-            int index = partition(nums, l, r);
-            quickSort(nums, l, index - 1);
-            quickSort(nums, index + 1, r);
+    private void quickSort(int[] nums, int l, int r) {
+        if (l >= r) {
+            return;
         }
+        int m = partition(nums, l, r);
+        quickSort(nums, l, m - 1);
+        quickSort(nums, m + 1, r);
     }
 
-    int partition(int[] nums, int l, int r) {
-        int addition = nums[l];
+    private int partition(int[] nums, int l, int r) {
+        int temp = nums[l];
         while (l < r) {
-            while (l < r && nums[r] >= addition) {
+            while (l < r && nums[r] >= temp) {
                 r--;
             }
             if (l < r) {
                 nums[l] = nums[r];
             }
-            while (l < r && nums[l] <= addition) {
+            while (l < r && nums[l] <= temp) {
                 l++;
             }
             if (l < r) {
                 nums[r] = nums[l];
             }
         }
-        nums[l] = addition;
+        nums[l] = temp;
         return l;
     }
 }
