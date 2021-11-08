@@ -1,15 +1,14 @@
+import java.util.Arrays;
+
 class Solution {
     public int missingNumber(int[] nums) {
-    int[] temp = new int[nums.length+1];
-        for(int i=0;i<nums.length;i++)
-        {
-            temp[nums[i]]=1;
+        int res =0 ;
+        for (int num : nums) {
+            res ^= num;
         }
-        for(int i=0;i<nums.length;i++)
-        {
-            if(temp[i]==0)
-                return i;
+        for (int i = 0; i <= nums.length; i++) {
+            res ^= i;
         }
-        return nums.length;
+        return res;
     }
 }
