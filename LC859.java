@@ -1,44 +1,46 @@
+import java.util.ArrayList;
+import java.util.List;
+
 class Solution {
-    public boolean buddyStrings(String A, String B) {
-        if(A.length()!=B.length())
+    public boolean buddyStrings(String s, String goal) {
+        int[] alpha  = new int[26];
+        char[] chars1 = s.toCharArray();
+        char[] chars2 = goal.toCharArray();
+        if (chars1.length != chars2.length) {
             return false;
-        if(A.equals(B))
-        {
-            int[] alpha = new int[26];
-            for(int i=0;i<A.length();i++)
-            {
-
-                if(++alpha[A.charAt(i)-'a']>=2)
-                {
-                    return true;
-                }
+        }
+        int flag = 0;
+        for (int i = 0; i < chars1.length; i++) {
+            alpha[chars1[i]-'a']++;
+            if (alpha[chars1[i] - 'a'] >= 2) {
+                flag = 1;
             }
         }
-        int left=0;
-        for(int i=0;i<A.length();i++)
-        {
-            if(A.charAt(i)!=B.charAt(i))
-            {
-                left=i;
+        if (s.equals(goal)) {
+            if (flag == 1) {
+                return true;
+            }else{
+                return false;
+            }
+        }
+        List<Integer> poses = new ArrayList<>();
+        for (int i = 0; i < chars1.length; i++) {
+            if (chars1[i] != chars2[i]) {
+                poses.add(i);
+            }
+            if (poses.size() >= 2) {
                 break;
             }
         }
-        int right=A.length()-1;
-        for(int i=A.length()-1;i>=0;i--)
-        {
-            if(A.charAt(i)!=B.charAt(i))
-            {
-                right=i;
-                break;
-            }
-        }
-        if(left>=right)
+        if (poses.size() <= 1) {
             return false;
-        char temp = A.charAt(left);
-        StringBuilder stringBuilder = new StringBuilder(A);
-        stringBuilder.setCharAt(left,stringBuilder.charAt(right));
-        stringBuilder.setCharAt(right,temp);
-        return stringBuilder.toString().equals(B);
+        }
+        char temp = chars1[poses.get(0)];
+        chars1[poses.get(0)] = chars1[poses.get(1)];
+        chars1[poses.get(1)] = temp;
+        String s1 = String.valueOf(chars1);
+        String s2 = String.valueOf(chars2);
 
+        return s1.equals(s2);
     }
 }
