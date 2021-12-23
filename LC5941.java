@@ -14,12 +14,14 @@ class Solution {
                 meeting[1] = temp;
             }
         }
+
         Arrays.sort(meetings, new Comparator<int[]>() {
             @Override
             public int compare(int[] o1, int[] o2) {
                 return o1[2] - o2[2];
             }
         });
+
         int time = meetings[0][2];
         Set<Integer> res = new HashSet<>();
         res.add(0);

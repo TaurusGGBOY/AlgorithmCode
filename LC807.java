@@ -1,25 +1,29 @@
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
 class Solution {
     public int maxIncreaseKeepingSkyline(int[][] grid) {
-        int[] hirachy = new int[grid.length];
-        int[] vericle = new int[grid[0].length];
-        int count = 0;
-        int countAfter = 0;
-
-        for (int i = 0; i < hirachy.length; i++) {
-            for (int j = 0; j < vericle.length; j++) {
-                hirachy[i] = Math.max(hirachy[i], grid[i][j]);
-                vericle[j] = Math.max(vericle[j], grid[i][j]);
+        int[] maxCol = new int[grid[0].length];
+        int[] maxRow = new int[grid.length];
+        int res = 0;
+        for (int i = 0; i < grid[0].length; i++) {
+            for (int j = 0; j < grid.length; j++) {
+                maxCol[i] = Math.max(maxCol[i], grid[j][i]);
+                maxRow[j] = Math.max(maxRow[j], grid[j][i]);
+                res += grid[j][i];
             }
         }
+//        System.out.println(Arrays.toString(maxRow));
+//        System.out.println(Arrays.toString(maxCol));
 
-        for (int i = 0; i < hirachy.length; i++) {
-            for (int j = 0; j < vericle.length; j++) {
-                count += grid[i][j];
-
-                grid[i][j] = Math.min(hirachy[i], vericle[j]);
-                countAfter += grid[i][j];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                res -=  Math.min(maxRow[i], maxCol[j]);
             }
         }
-        return countAfter - count;
+//        for (int i = 0; i < grid.length; i++) {
+//            System.out.println(Arrays.toString(grid[i]));
+//        }
+        return -res;
     }
 }
