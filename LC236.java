@@ -1,51 +1,43 @@
-import java.util.Vector;
-
 /**
- * Definition for a binary tree node. public class TreeNode { int val; TreeNode
- * left; TreeNode right; TreeNode(int x) { val = x; } }
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode(int x) { val = x; }
+ * }
  */
-// �����Լ�֦
 class Solution {
-    Vector<TreeNode> set1 = new Vector<>();
-    Vector<TreeNode> set2 = new Vector<>();
-    Vector<TreeNode> set = new Vector<>();
-    int pVal = 0;
-    int qVal = 0;
+    //    class TreeNode {
+//      int val;
+//      TreeNode left;
+//      TreeNode right;
+//      TreeNode(int x) { val = x; }
+//  }
+    TreeNode res;
 
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        pVal = p.val;
-        qVal = q.val;
-        dfs(root);
-        TreeNode nodeNum = new TreeNode(0);
-        int deep = 0;
-        for (int i = set1.size() - 1; i >= 0; i--) {
-            if (set2.contains(set1.get(i))) {
-                nodeNum = set1.get(i);
-                deep = i;
-                break;
-            }
-        }
-        for (int i = set2.size() - 1; i >= 0; i--) {
-            if (set1.contains(set2.get(i)) && i > deep) {
-                nodeNum = set2.get(i);
-                break;
-            }
-        }
-        return nodeNum;
+        res = null;
+        dfs(root, p, q);
+        return res;
     }
 
-    void dfs(TreeNode node) {
-        if (node == null)
-            return;
-        set.add(node);
-        if (node.val == pVal) {
-            set1.addAll(set);
+    int dfs(TreeNode node, TreeNode p, TreeNode q) {
+        if (node == null) {
+            return 0;
         }
-        if (node.val == qVal) {
-            set2.addAll(set);
+        int l = dfs(node.left, p, q);
+        int r = dfs(node.right, p, q);
+        int m = 0;
+        if (p == node || q == node) {
+            m = 1;
         }
-        dfs(node.left);
-        dfs(node.right);
-        set.remove(set.size() - 1);
+        int sum = l + r + m;
+        if (sum == 2 && res == null) {
+            res = node;
+        }
+        return sum;
     }
+
+
 }
