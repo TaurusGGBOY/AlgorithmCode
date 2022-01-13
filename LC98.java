@@ -1,24 +1,52 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
+ * }
+ */
 class Solution {
-    boolean res;
+    boolean isValid;
 
     public boolean isValidBST(TreeNode root) {
-        res = true;
+        isValid = true;
+        if (root == null) return true;
         dfs(root);
-        return res;
+        return isValid;
     }
 
     int[] dfs(TreeNode node) {
-        int[] temp = new int[2];
-        if (!res) return temp;
-        if (node == null) return temp;
-        int[] left = dfs(node.left);
-        int[] right = dfs(node.right);
-        if (left[1] >= node.val || right[0] <= node.val) {
-            res = false;
-            return temp;
+        int[] minMax = new int[2];
+        if (!isValid) return minMax;
+        Arrays.fill(minMax, node.val);
+        if (node.left != null) {
+            int[] res = dfs(node.left);
+            if (res[1] >= node.val) {
+                isValid = false;
+                return minMax;
+            }
+            minMax[0] = res[0];
         }
-        temp[0] = Math.min(node.val, left[1]);
-        temp[1] = Math.max(node.val, right[0]);
-        return temp;
+
+        if (node.right != null) {
+            int[] res = dfs(node.right);
+            if (res[0] <= node.val) {
+                isValid = false;
+                return minMax;
+            }
+            minMax[1] = res[1];
+        }
+        return minMax;
     }
 }

@@ -1,30 +1,32 @@
-// TODO：失败
+import java.util.*;
+
 class Solution {
+    List<List<Integer>> res;
+    List<Integer> list;
     boolean[] vis;
 
     public List<List<Integer>> permuteUnique(int[] nums) {
-        List<List<Integer>> ans = new ArrayList<List<Integer>>();
-        List<Integer> perm = new ArrayList<Integer>();
+        res = new ArrayList<>();
         vis = new boolean[nums.length];
+        list = new ArrayList<>();
         Arrays.sort(nums);
-        backtrack(nums, ans, 0, perm);
-        return ans;
+        dfs(nums);
+        return res;
     }
 
-    public void backtrack(int[] nums, List<List<Integer>> ans, int idx, List<Integer> perm) {
-        if (idx == nums.length) {
-            ans.add(new ArrayList<Integer>(perm));
-            return;
+    void dfs(int[] nums) {
+        if (list.size() == nums.length) {
+                res.add(new ArrayList<>(list));
+                return;
         }
-        for (int i = 0; i < nums.length; ++i) {
-            if (vis[i] || (i > 0 && nums[i] == nums[i - 1] && !vis[i - 1])) {
-                continue;
-            }
-            perm.add(nums[i]);
+        for (int i = 0; i < nums.length; i++) {
+            // 保证不会出现 111 index为123 只能按照123的下标取，不会按照213 312 321等顺序 也可以自定义顺序
+            if (vis[i] || (i > 0 && nums[i] == nums[i - 1] && !vis[i - 1])) continue;
             vis[i] = true;
-            backtrack(nums, ans, idx + 1, perm);
+            list.add(nums[i]);
+            dfs(nums);
+            list.remove(list.size() - 1);
             vis[i] = false;
-            perm.remove(idx);
         }
     }
 }

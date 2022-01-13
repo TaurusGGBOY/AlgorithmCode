@@ -1,26 +1,32 @@
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 class Solution {
     public int dominantIndex(int[] nums) {
-        Set<Integer> set = new HashSet<>();
-        int maxNum = 0;
-        int maxPos = 0;
+        if (nums.length <= 1) {
+            return 0;
+        }
+        Queue<Integer> minHeap = new PriorityQueue<>(2, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return nums[o1] - nums[o2];
+            }
+        });
         for (int i = 0; i < nums.length; i++) {
-            set.add(nums[i]);
-            if (maxNum < nums[i]) {
-                maxNum = nums[i];
-                maxPos = i;
+            if (minHeap.size() <= 1) {
+                minHeap.offer(i);
+                continue;
+            }
+            if (nums[minHeap.peek()] < nums[i]) {
+                minHeap.poll();
+                minHeap.offer(i);
             }
         }
-        int second = 0;
-        for (int num : set) {
-            if (second < num && num != maxNum) {
-                second = num;
-            }
-        }
-        return maxNum>=second*2?maxPos:-1;
-
+//        System.out.println(minHeap.toString());
+        int min = minHeap.poll();
+        int max = minHeap.poll();
+        return nums[max] >= nums[min] * 2 ? max : -1;
     }
 }

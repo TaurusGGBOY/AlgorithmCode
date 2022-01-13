@@ -1,36 +1,18 @@
-import java.util.ArrayList;
-import java.util.List;
-
 class Solution {
-    List<List<Integer>> listlist = new ArrayList<List<Integer>>();
 
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
-
-        List<Integer> list = new ArrayList<>();
-        dfs(0, candidates, 0, target, list);
-        return listlist;
+    public List<List<Integer>> combinationSum(int[] c, int t) {
+        List<List<Integer>> res = new ArrayList<>();
+        dfs(res, c, 0, 0, new ArrayList<>(), t);
+        return res;
     }
 
-    void dfs(int order, int[] candidates, int current, int target, List<Integer> list) {
-        if (current == target) {
-            List<Integer> list2 = new ArrayList<>();
-            list2.addAll(list);
-            listlist.add(list2);
-            System.out.println(list2.toString());
-            return;
+    void dfs(List<List<Integer>> res, int[] c, int pos, int sum, List<Integer> list, int t) {
+        if (sum == t) res.add(new ArrayList<>(list));
+        if (sum >= t) return;
+        for (int i = pos; i < c.length; i++) {
+            list.add(c[i]);
+            dfs(res, c, i, sum + c[i], list, t);
+            list.remove(list.size() - 1);
         }
-        if (order == candidates.length) {
-            return;
-        }
-        for (int i = 0; i <= (target - current) / candidates[order]; i++) {
-            for (int j = 0; j < i; j++) {
-                list.add(candidates[order]);
-            }
-            dfs(order + 1, candidates, current + i * candidates[order], target, list);
-            for (int j = 0; j < i; j++) {
-                list.remove(list.size() - 1);
-            }
-        }
-
     }
 }
