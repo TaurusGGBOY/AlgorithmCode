@@ -1,62 +1,38 @@
 /**
  * Definition for singly-linked list.
  * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
+ * int val;
+ * ListNode next;
+ * ListNode() {}
+ * ListNode(int val) { this.val = val; }
+ * ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
 class Solution {
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        if(l1==null)
-            return l2;
-        if(l2==null)
-            return l1;
-        ListNode head;
-        if(l1.val < l2.val)
-        {    head = new ListNode(l1.val);
-            l1=l1.next;
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode yummy = new ListNode(-1);
+        ListNode node = yummy;
+        while (list1 != null || list2 != null) {
+            if (list1 == null) {
+                node.next = list2;
+                break;
+            }
+            if (list2 == null){
+                node.next = list1;
+                break;
+            }
+            ListNode temp = null;
+            if (list1.val < list2.val) {
+                temp = list1;
+                list1 = list1.next;
+            } else {
+                temp = list2;
+                list2 = list2.next;
+            }
+            node.next = temp;
+            node = node.next;
+            node.next = null;
         }
-        else
-        {
-            head = new ListNode(l2.val);
-            l2=l2.next;}
-
-        ListNode returnnode = head;
-
-        while(l1!=null||l2!=null)
-        {
-
-            if(l1==null)
-            {
-                ListNode temp = new ListNode(l2.val);
-                returnnode.next = temp;
-                returnnode =  returnnode.next;
-                l2=l2.next;
-            }
-            else if(l2==null)
-            {
-                ListNode temp = new ListNode(l1.val);
-                returnnode.next = temp;
-                returnnode =  returnnode.next;
-                l1=l1.next;
-            }
-            else if(l1.val<l2.val)
-            {
-                ListNode temp = new ListNode(l1.val);
-                returnnode.next = temp;
-                returnnode = returnnode.next;
-                l1=l1.next;
-            }
-            else if(l1.val >= l2.val)
-            {
-                ListNode temp = new ListNode(l2.val);
-                returnnode.next = temp;
-                returnnode =  returnnode.next;
-                l2=l2.next;
-            }
-        }
-        return head;
-
+        return yummy.next;
     }
 }

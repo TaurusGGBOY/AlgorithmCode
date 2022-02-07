@@ -3,30 +3,37 @@
  * public class ListNode {
  * int val;
  * ListNode next;
- * ListNode(int x) { val = x; }
+ * ListNode() {}
+ * ListNode(int val) { this.val = val; }
+ * ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
 class Solution {
     public ListNode reverseBetween(ListNode head, int left, int right) {
-        ListNode first = new ListNode(0);
-        first.next  = head;
-        ListNode start = first;
-        for (int i = 0; i < left-1; i++) {
-            start = start.next;
+        left--;
+        right--;
+        if (left == right) return head;
+        ListNode yummy = new ListNode(-1, head);
+        ListNode node = yummy;
+        for (int i = 0; i < left; i++) node = node.next;
+        ListNode prev = node;
+        node = node.next;
+        for (int i = 0; i < right - left ; i++) {
+            ListNode temp = node.next;
+            delete(node);
+            insert(prev, temp);
         }
-        // curr.next指向left
-        ListNode curr = start.next;
-        // 2. 优化 假如现在curr.next为null会如何 答：不会出现这种情况 一开始curr是2 next是3 然后2 4 然后 2 5反正next都是有实际的值所以即使next.next为null也只有curr.next = null是对的
-        for (int i = left; i < right; i++) {
-            // 保存要被顶到前面去的老哥
-            ListNode next = curr.next;
-            // 让现在节点指向他的后方
-            curr.next = next.next;
-            // 将要顶的节点插入到头部
-            ListNode temp = start.next;
-            start.next  = next;
-            next.next = temp;
-        }
-        return first.next;
+        return yummy.next;
     }
+
+    void delete(ListNode prev) {
+        prev.next = prev.next.next;
+    }
+
+    void insert(ListNode prev, ListNode node) {
+        node.next = prev.next;
+        prev.next = node;
+    }
+
+
 }

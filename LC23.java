@@ -1,40 +1,49 @@
-import java.util.*;
+import java.lang.invoke.CallSite;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ * int val;
+ * ListNode next;
+ * ListNode() {}
+ * ListNode(int val) { this.val = val; }
+ * ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
 class Solution {
+//    class ListNode {
+//        int val;
+//        ListNode next;
+//
+//        ListNode() {
+//        }
+//
+//        ListNode(int val) {
+//            this.val = val;
+//        }
+//
+//        ListNode(int val, ListNode next) {
+//            this.val = val;
+//            this.next = next;
+//        }
+//    }
+
     public ListNode mergeKLists(ListNode[] lists) {
-        Queue<Integer> queue = new PriorityQueue<>((o1, o2) -> lists[o1].val - lists[o2].val);
-        for (int i = 0; i < lists.length; i++) {
-            if (lists[i] != null) {
-                queue.offer(i);
-            }
+        Queue<Integer> q = new PriorityQueue<>((o1, o2) -> lists[o1].val - lists[o2].val);
+        for (int i = 0; i < lists.length; i++) if (lists[i] != null) q.offer(i);
+        ListNode yummy = new ListNode();
+        ListNode node = yummy;
+        while(!q.isEmpty()){
+            int i = q.poll();
+            ListNode list = lists[i];
+            node.next = list;
+            lists[i] = lists[i].next;
+            list.next = null;
+            node = node.next;
+            if(lists[i] != null) q.offer(i);
         }
-        if (queue.isEmpty()) {
-            return null;
-        }
-        int poll = queue.poll();
-        ListNode tail = new ListNode(lists[poll].val, null);
-        lists[poll] = lists[poll].next;
-        if (lists[poll] != null) {
-            queue.offer(poll);
-        }
-        ListNode prev = new ListNode(-1, tail);
-
-        while (!queue.isEmpty()) {
-            int temp = queue.poll();
-            ListNode node = lists[temp];
-            ListNode next = node.next;
-            add(tail, node);
-            tail = tail.next;
-            lists[temp] = next;
-            if (next != null) {
-                queue.offer(temp);
-            }
-        }
-        return prev.next;
-    }
-
-    void add(ListNode prev, ListNode node) {
-        node.next = prev.next;
-        prev.next = node;
+        return yummy.next;
     }
 }

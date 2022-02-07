@@ -1,32 +1,27 @@
-// TODO 失败
+import java.util.*;
+
 class Solution {
     public List<Integer> spiralOrder(int[][] matrix) {
-        List<Integer> order = new ArrayList<Integer>();
-        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
-            return order;
-        }
-        int rows = matrix.length, columns = matrix[0].length;
-        int left = 0, right = columns - 1, top = 0, bottom = rows - 1;
-        while (left <= right && top <= bottom) {
-            for (int column = left; column <= right; column++) {
-                order.add(matrix[top][column]);
-            }
-            for (int row = top + 1; row <= bottom; row++) {
-                order.add(matrix[row][right]);
-            }
-            if (left < right && top < bottom) {
-                for (int column = right - 1; column > left; column--) {
-                    order.add(matrix[bottom][column]);
+        int[][] directions = new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        int[][] vis = new int[matrix.length][matrix[0].length];
+        int x = 0, y = 0, d = 0;
+        List<Integer> res = new ArrayList<>();
+        vis[x][y] = 1;
+        res.add(matrix[x][y]);
+        while (true) {
+            boolean flag = false;
+            for (int i = 0; i < directions.length; i++) {
+                while (x + directions[d][0] >= 0 && x + directions[d][0] < matrix.length && y + directions[d][1] >= 0 && y + directions[d][1] < matrix[0].length && vis[x + directions[d][0]][y + directions[d][1]] == 0) {
+                    x = x + directions[d][0];
+                    y = y + directions[d][1];
+                    vis[x][y] = 1;
+                    res.add(matrix[x][y]);
+                    flag = true;
                 }
-                for (int row = bottom; row > top; row--) {
-                    order.add(matrix[row][left]);
-                }
+                d = (d + 1) % directions.length;
             }
-            left++;
-            right--;
-            top++;
-            bottom--;
+            if(!flag) break;
         }
-        return order;
+        return res;
     }
 }

@@ -1,38 +1,21 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 class Solution {
-    List<String> list = new ArrayList<String>();
-    int leftCount = 0;
-    StringBuilder stringBuilder = new StringBuilder();
-
-    public List<String> generateParenthesis(int n) {
-        dfs(1, n);
-        return set;
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> list = Arrays.stream(nums).boxed().collect(Collectors.toList());
+        dfs(res, list, 0);
+        return res;
     }
 
-    private void dfs(int depth, int n) {
-        // System.out.println(stringBuilder.toString());
-        if (depth == 2 * n + 1) {
-            if (leftCount == 0)
-                set.add(stringBuilder.toString());
-            return;
-        }
-        if (leftCount < n) {
-            leftCount++;
-            stringBuilder.append("(");
-            dfs(depth + 1, n);
-            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-            leftCount--;
-        }
-
-        if (leftCount > 0) {
-            leftCount--;
-            stringBuilder.append(")");
-            dfs(depth + 1, n);
-            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-            leftCount++;
+    // 每次确定一个数
+    private void dfs(List<List<Integer>> res, List<Integer> list, int pos) {
+        if (pos == list.size()) res.add(new ArrayList<>(list));
+        for (int i = pos; i < list.size(); i++) {
+            Collections.swap(list, pos, i);
+            dfs(res, list, pos + 1);
+            Collections.swap(list, pos, i);
         }
     }
-
 }

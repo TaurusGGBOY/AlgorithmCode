@@ -1,40 +1,29 @@
-import java.util.ArrayList;
-import java.util.PriorityQueue;
-
 /**
- * Definition for singly-linked list. class ListNode { int val; ListNode next;
- * ListNode(int x) { val = x; next = null; } }
+ * Definition for singly-linked list.
+ * class ListNode {
+ * int val;
+ * ListNode next;
+ * ListNode(int x) {
+ * val = x;
+ * next = null;
+ * }
+ * }
  */
-// ʧ��
 public class Solution {
-    public int leastInterval(char[] tasks, int n) {
-        int[] map = new int[26];
-        for (char c : tasks)
-            map[c - 'A']++;
-        PriorityQueue<Integer> queue = new PriorityQueue<>(26, Collections.reverseOrder());
-        for (int f : map) {
-            if (f > 0)
-                queue.add(f);
+    public ListNode detectCycle(ListNode head) {
+        if (head == null || head.next == null) return null;
+        ListNode slow = head.next;
+        ListNode fast = head.next.next;
+        while (fast != null && fast.next != null && slow != fast) {
+            slow = slow.next;
+            fast = fast.next.next;
         }
-        int time = 0;
-        while (!queue.isEmpty()) {
-            int i = 0;
-            List<Integer> temp = new ArrayList<>();
-            while (i <= n) {
-                if (!queue.isEmpty()) {
-                    if (queue.peek() > 1)
-                        temp.add(queue.poll() - 1);
-                    else
-                        queue.poll();
-                }
-                time++;
-                if (queue.isEmpty() && temp.size() == 0)
-                    break;
-                i++;
-            }
-            for (int l : temp)
-                queue.add(l);
+        if (slow != fast) return null;
+        fast = head;
+        while (fast != slow) {
+            fast = fast.next;
+            slow = slow.next;
         }
-        return time;
+        return slow;
     }
 }

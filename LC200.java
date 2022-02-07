@@ -1,28 +1,27 @@
+import java.util.*;
+
 class Solution {
-    int[][] visited;
-    final int[][] directions = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    int[][] vis;
+    char[][] gr;
+    int[][] directions = new int[][]{{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
     public int numIslands(char[][] grid) {
-        visited = new int[grid.length][grid[0].length];
         int res = 0;
+        vis = new int[grid.length][grid[0].length];
+        gr = grid;
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
-                if (visited[i][j] == 0 && grid[i][j] == '1') {
-                    res++;
-                    dfs(i, j, grid);
-                }
+                if (vis[i][j] == 1 || grid[i][j] == '0') continue;
+                res++;
+                dfs(i, j);
             }
         }
         return res;
     }
 
-    void dfs(int i, int j, char[][] grid) {
-        if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || visited[i][j] == 1 || grid[i][j] == '0') {
-            return;
-        }
-        visited[i][j] = 1;
-        for (int[] direction : directions) {
-            dfs(i + direction[0], j + direction[1], grid);
-        }
+    void dfs(int x, int y) {
+        if (x < 0 || x >= vis.length || y < 0 || y >= vis[0].length || vis[x][y] == 1 || gr[x][y] == '0') return;
+        vis[x][y] = 1;
+        for (int[] d : directions) dfs(d[0] + x, d[1] + y);
     }
 }

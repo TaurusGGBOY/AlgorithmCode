@@ -1,38 +1,19 @@
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.Queue;
+
 class Solution {
     public String addStrings(String num1, String num2) {
-        StringBuilder stringBuilder1 = new StringBuilder();
-        StringBuilder stringBuilder2 = new StringBuilder();
-        if(num1.length()-num2.length()>0)
-        {
-            for(int i=0;i<Math.abs(num1.length()-num2.length());i++)
-                stringBuilder2.append('0');
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int pos1 = num1.length() - 1, pos2 = num2.length() - 1, inBit = 0; pos1 >= 0 || pos2 >= 0 || inBit != 0; pos1--, pos2--) {
+            int l = pos1 < 0 ? 0 : num1.charAt(pos1) - '0';
+            int r = pos2 < 0 ? 0 : num2.charAt(pos2) - '0';
+            int temp = l + r + inBit;
+            inBit = temp / 10;
+            temp = temp % 10;
+            stringBuilder.append(temp);
         }
-        else
-        {
-            for(int i=0;i<Math.abs(num1.length()-num2.length());i++)
-                stringBuilder1.append('0');
-        }
-        stringBuilder1.append(num1);
-        stringBuilder2.append(num2);
-        StringBuilder str = new StringBuilder();
-        int inPos=0;
-        for(int i=stringBuilder1.length()-1;i>=0;i--)
-        {
-            int sum = stringBuilder1.charAt(i)+stringBuilder2.charAt(i)-'0'-'0'+inPos;
-            if(sum>=10)
-            {
-                inPos=1;
-                sum-=10;
-            }
-            else
-            {
-                inPos=0;
-            }
-            str.append(sum);
-        }
-        if(inPos==1)
-            str.append(1);
-        str.reverse();
-        return str.toString();
+        return stringBuilder.reverse().toString();
     }
 }

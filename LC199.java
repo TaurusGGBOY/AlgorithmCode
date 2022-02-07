@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 
 /**
  * Definition for a binary tree node.
@@ -9,35 +7,30 @@ import java.util.Queue;
  * int val;
  * TreeNode left;
  * TreeNode right;
- * TreeNode(int x) { val = x; }
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
  * }
  */
 class Solution {
-    Queue<TreeNode> queue = new LinkedList<>();
-
     public List<Integer> rightSideView(TreeNode root) {
-        List<Integer> list = new ArrayList<>();
-        if(root==null)
-            return list;
-        queue.add(root);
-        while(!queue.isEmpty())
-        {
-            int size = queue.size();
-            for(int i=0;i<size-1;i++)
-            {
-                TreeNode temp = queue.poll();
-                if(temp.left!=null)
-                    queue.add(temp.left);
-                if(temp.right!=null)
-                    queue.add(temp.right);
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        LinkedList<TreeNode> list = new LinkedList<TreeNode>();
+        list.add(root);
+        while (!list.isEmpty()) {
+            res.add(list.getLast().val);
+            int n = list.size();
+            for (int i = 0; i < n; i++) {
+                TreeNode node = list.pollFirst();
+                if (node.left != null) list.offerLast(node.left);
+                if (node.right != null) list.offerLast(node.right);
             }
-            TreeNode temp = queue.poll();
-            if(temp.left!=null)
-                queue.add(temp.left);
-            if(temp.right!=null)
-                queue.add(temp.right);
-            list.add(temp.val);
         }
-        return list;
+        return res;
     }
 }
