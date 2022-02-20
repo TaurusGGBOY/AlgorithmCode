@@ -1,32 +1,29 @@
 import java.util.concurrent.Semaphore;
 
 class Foo {
-    Semaphore[] semaphores = new Semaphore[2];
+    Semaphore[] semaphore = new Semaphore[3];
 
     public Foo() {
-        semaphores[0] = new Semaphore(0);
-        semaphores[1] = new Semaphore(0);
+        semaphore[0] = new Semaphore(1);
+        semaphore[1] = new Semaphore(0);
+        semaphore[2] = new Semaphore(0);
     }
 
     public void first(Runnable printFirst) throws InterruptedException {
-
-        // printFirst.run() outputs "first". Do not change or remove this line.
+        semaphore[0].acquire();
         printFirst.run();
-        semaphores[0].release();
+        semaphore[1].release();
     }
 
     public void second(Runnable printSecond) throws InterruptedException {
-
-        // printSecond.run() outputs "second". Do not change or remove this line.
-        semaphores[0].acquire();
+        semaphore[1].acquire();
         printSecond.run();
-        semaphores[1].release();
+        semaphore[2].release();
     }
 
     public void third(Runnable printThird) throws InterruptedException {
-
-        // printThird.run() outputs "third". Do not change or remove this line.
-        semaphores[1].acquire();
+        semaphore[2].acquire();
         printThird.run();
+        semaphore[0].release();
     }
 }

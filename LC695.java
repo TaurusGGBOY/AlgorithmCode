@@ -1,31 +1,29 @@
 class Solution {
-    int[][] visited;
-    final int[][] directions = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
     int count;
+    int max;
+    int[][] g;
+    int[][] vis;
+    final static int[][] directions = new int[][]{{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
     public int maxAreaOfIsland(int[][] grid) {
-        visited = new int[grid.length][grid[0].length];
-        int res = 0;
+        count = 0;
+        max = 0;
+        g = grid;
+        vis = new int[grid.length][grid[0].length];
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
-                if (visited[i][j] == 0 && grid[i][j] == 1) {
-                    count = 0;
-                    dfs(i, j, grid);
-                    res = Math.max(count, res);
-                }
+                count = 0;
+                dfs(i, j);
             }
         }
-        return res;
+        return max;
     }
 
-    void dfs(int i, int j, int[][] grid) {
-        if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || visited[i][j] == 1 || grid[i][j] == 0) {
-            return;
-        }
-        visited[i][j] = 1;
+    void dfs(int x, int y) {
+        if (x < 0 || y < 0 || x >= g.length || y >= g[0].length || g[x][y] == 0 || vis[x][y] == 1) return;
+        vis[x][y] = 1;
         count++;
-        for (int[] direction : directions) {
-            dfs(i + direction[0], j + direction[1], grid);
-        }
+        max = Math.max(count, max);
+        for (int[] d : directions) dfs(x + d[0], y + d[1]);
     }
 }
