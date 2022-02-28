@@ -1,34 +1,41 @@
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
+import java.util.*;
 
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- * int val;
- * TreeNode left;
- * TreeNode right;
- * TreeNode() {}
- * TreeNode(int val) { this.val = val; }
- * TreeNode(int val, TreeNode left, TreeNode right) {
- * this.val = val;
- * this.left = left;
- * this.right = right;
- * }
- * }
- */
 class Solution {
+//    class TreeNode {
+//        int val;
+//        TreeNode left;
+//        TreeNode right;
+//
+//        TreeNode() {
+//        }
+//
+//        TreeNode(int val) {
+//            this.val = val;
+//        }
+//
+//        TreeNode(int val, TreeNode left, TreeNode right) {
+//            this.val = val;
+//            this.left = left;
+//            this.right = right;
+//        }
+//    }
+
     public List<Integer> inorderTraversal(TreeNode root) {
-        Deque<TreeNode> stack = new ArrayDeque<>();
         List<Integer> res = new ArrayList<>();
-        while (root != null || !stack.isEmpty()) {
-            while(root != null){
-                stack.push(root);
+        if (root == null) {
+            return res;
+        }
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        // 考点1：循环有两个条件
+        while (!stack.isEmpty() || root != null) {
+            while (root != null) {
+                stack.offerLast(root);
                 root = root.left;
             }
-            TreeNode pop = stack.pop();
-            res.add(pop.val);
-            root = pop.right;
+            // 考点2 直接就修改root就行
+            root = stack.pollLast();
+            res.add(root.val);
+            root = root.right;
         }
         return res;
     }

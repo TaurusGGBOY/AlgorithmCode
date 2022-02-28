@@ -15,19 +15,28 @@
  */
 class Solution {
     public TreeNode deleteNode(TreeNode root, int key) {
-        if (root == null) return null;
-        if (key < root.val) root.left = deleteNode(root.left, key);
-        else if (key > root.val) root.right = deleteNode(root.right, key);
-        else {
-            if (root.right == null && root.left == null) return null;
-            else if (root.right == null) return root.left;
-            else if (root.left == null) return root.right;
-            else {
-                TreeNode left = root.right;
-                while (left.left != null) left = left.left;
-                left.left = root.left;
-                root = root.right;
+        if (root == null) {
+            return root;
+        }
+        if (key < root.val) {
+            root.left = deleteNode(root.left, key);
+        } else if (key > root.val) {
+            root.right = deleteNode(root.right, key);
+        } else {
+            // 本身等于这个key了
+            if(root.left == null && root.right == null) {
+                return null;
+            } else if (root.left == null) {
+                return root.right;
+            } else if (root.right == null) {
+                return root.left;
             }
+            TreeNode l = root.right;
+            while (l.left != null) {
+                l = l.left;
+            }
+            l.left = root.left;
+            root = root.right;
         }
         return root;
     }

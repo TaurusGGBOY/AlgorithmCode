@@ -1,43 +1,43 @@
-import javax.swing.tree.TreeNode;
+import java.util.*;
 
 /**
- * Definition for a binary tree node. public class TreeNode { int val; TreeNode
- * left; TreeNode right; TreeNode(int x) { val = x; } }
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
+ * }
  */
-// ·ÅÆú
 class Solution {
+    int[] pre;
+    int[] in;
+    Map<Integer, Integer> map;
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        if (preorder.length == 0)
-            return null;
-        int mid = findPos(preorder[0], inorder);
-        // System.out.println(mid);
-        TreeNode root = new TreeNode(preorder[0]);
-        dfs(preorder, inorder, 0, mid - 1, root.left, 1, 1);
-        dfs(preorder, inorder, mid + 1, preorder.length - 1, root.right, 2, 4);
+        pre = preorder;
+        in = inorder;
+        map = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) map.put(inorder[i], i);
+        return build(0, preorder.length - 1, 0, preorder.length - 1);
+    }
+
+    private TreeNode build(int p_l, int p_r, int i_l, int i_r) {
+        if (p_l > p_r) return null;
+        TreeNode root = new TreeNode(pre[p_l]);
+        int in_root = map.get(pre[p_l]);
+        int left_cnt = in_root - i_l;
+        int right_cnt = i_r - in_root;
+        TreeNode left = build(p_l + 1, p_l + left_cnt, i_l, in_root - 1);
+        TreeNode right = build(p_r - right_cnt + 1, p_r, in_root + 1, in_root + right_cnt);
+        root.left = left;
+        root.right = right;
         return root;
-    }
-
-    void dfs(int[] preorder, int[] inorder, int start, int end, TreeNode node, int preStart, int preEnd) {
-        if (start > end)
-            return;
-        // System.out.println(start);
-        if (preStart >= preorder.length)
-            return;
-
-        int mid = findPos(preorder[preStart], inorder);
-        node = new TreeNode(preorder[preStart]);
-        System.out.println(preorder[preStart]);
-        if (start == end)
-            return;
-        dfs(preorder, inorder, start, mid - 1, node.left, preStart + 1, preStart + 1 + mid - start);
-        dfs(preorder, inorder, mid + 1, end, node.right, preStart + 1 + mid - start + 1, preEnd);
-    }
-
-    int findPos(int val, int[] order) {
-        for (int i = 0; i < order.length; i++)
-            if (order[i] == val)
-                return i;
-        return 0;
     }
 }

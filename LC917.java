@@ -1,24 +1,21 @@
-import java.util.Stack;
-
 class Solution {
-  public String reverseOnlyLetters(String S) {
-    Stack<Character> stack = new Stack<>();
-    for (int i = 0; i < S.length(); i++) {
-      if ((S.charAt(i) >= 'a' && S.charAt(i) <= 'z')
-          || (S.charAt(i) >= 'A' && S.charAt(i) <= 'Z')) {
-        stack.add(S.charAt(i));
-      }
+    public String reverseOnlyLetters(String s) {
+        int l = 0;
+        int r = s.length() - 1;
+        char[] chars = s.toCharArray();
+        while (l < r) {
+            while (l < r && !isLetter(s, l)) l++;
+            while (l < r && !isLetter(s, r)) r--;
+            char temp = chars[l];
+            chars[l] = chars[r];
+            chars[r] = temp;
+            l++;
+            r--;
+        }
+        return new String(chars);
     }
-    StringBuilder stringBuilder = new StringBuilder();
-    for (int i = 0; i < S.length(); i++) {
-      if ((S.charAt(i) >= 'a' && S.charAt(i) <= 'z')
-          || (S.charAt(i) >= 'A' && S.charAt(i) <= 'Z')) {
-        stringBuilder.append(stack.pop());
-      } else {
-        stringBuilder.append(S.charAt(i));
-      }
-    }
-    return stringBuilder.toString();
 
-  }
+    boolean isLetter(String s, int i) {
+        return (s.charAt(i) >= 'a' && s.charAt(i) <= 'z') || (s.charAt(i) >= 'A' && s.charAt(i) <= 'Z');
+    }
 }

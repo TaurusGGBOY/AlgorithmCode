@@ -1,27 +1,14 @@
-import java.util.*;
-
 class Solution {
-    public List<Integer> spiralOrder(int[][] matrix) {
-        int[][] directions = new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-        int[][] vis = new int[matrix.length][matrix[0].length];
-        int x = 0, y = 0, d = 0;
-        List<Integer> res = new ArrayList<>();
-        vis[x][y] = 1;
-        res.add(matrix[x][y]);
-        while (true) {
-            boolean flag = false;
-            for (int i = 0; i < directions.length; i++) {
-                while (x + directions[d][0] >= 0 && x + directions[d][0] < matrix.length && y + directions[d][1] >= 0 && y + directions[d][1] < matrix[0].length && vis[x + directions[d][0]][y + directions[d][1]] == 0) {
-                    x = x + directions[d][0];
-                    y = y + directions[d][1];
-                    vis[x][y] = 1;
-                    res.add(matrix[x][y]);
-                    flag = true;
-                }
-                d = (d + 1) % directions.length;
+    public int minPathSum(int[][] grid) {
+        int[][] dp = new int[grid.length][grid[0].length];
+        dp[0][0] = grid[0][0];
+        for (int i = 1; i < grid.length; i++) dp[i][0] = dp[i - 1][0] + grid[i][0];
+        for (int i = 1; i < grid[0].length; i++) dp[0][i] = dp[0][i-1] + grid[0][i];
+        for (int i = 1; i < grid.length; i++) {
+            for (int j = 1; j < grid[0].length; j++) {
+                dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j];
             }
-            if(!flag) break;
         }
-        return res;
+        return dp[grid.length - 1][grid[0].length - 1];
     }
 }

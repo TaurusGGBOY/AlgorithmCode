@@ -1,41 +1,34 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 class Solution {
-    private List<List<Integer>> listlist = new ArrayList<>();
+    List<String> res;
+    int open;
+    int close;
+    StringBuilder stringBuilder;
 
-    public List<List<Integer>> permute(int[] nums) {
-        int depth = 1;
-        int[] isValidate = new int[nums.length];
-        for (int i = 0; i < nums.length; i++) {
-            depth = 1;
-            isValidate[i] = 1;
-            List<Integer> list = new ArrayList<>();
-            list.add(nums[i]);
-            dfs(nums, isValidate, depth + 1, list);
-            isValidate[i] = 0;
-        }
-        return listlist;
+    public List<String> generateParenthesis(int n) {
+        res = new ArrayList<>();
+        stringBuilder = new StringBuilder();
+        open = n - 1;
+        close = n;
+        dfs('(');
+        return res;
     }
 
-    private void dfs(int[] nums, int[] isValidate, int depth, List<Integer> list) {
-        if (depth == nums.length + 1) {
-            // System.out.println(depth);
-            // System.out.println(list.toString());
-            List<Integer> newList = new ArrayList<>();
-            newList.addAll(list);
-            listlist.add(newList);
+    void dfs(char c) {
+        if (open < 0 || close < 0 || (open > close)) return;
+        stringBuilder.append(c);
+        if (open == close && open == 0) {
+            res.add(stringBuilder.toString());
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+            return;
         }
-        for (int i = 0; i < nums.length; i++) {
-
-            if (isValidate[i] == 0) {
-                isValidate[i] = 1;
-                list.add(nums[i]);
-                dfs(nums, isValidate, depth + 1, list);
-                list.remove(list.size() - 1);
-                isValidate[i] = 0;
-            }
-        }
+        open--;
+        dfs('(');
+        open++;
+        close--;
+        dfs(')');
+        close++;
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
     }
-
 }
