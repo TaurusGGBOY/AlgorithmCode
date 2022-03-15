@@ -1,0 +1,8 @@
+import java.util.*;
+
+class Solution {
+    StringBuilder stringBuilder = new StringBuilder();
+    public String convertToBase7(int num) {
+        return Integer.toString(num, 7);
+    }
+}
