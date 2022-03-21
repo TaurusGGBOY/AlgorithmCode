@@ -1,33 +1,40 @@
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
  * int val;
  * TreeNode left;
  * TreeNode right;
- * TreeNode(int x) { val = x; }
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
  * }
  */
 class Solution {
-    Set<Integer> set = new HashSet<>();
+    TreeNode root;
 
     public boolean findTarget(TreeNode root, int k) {
+        this.root = root;
         return dfs(root, k);
     }
 
-    boolean dfs(TreeNode node ,int k)
-    {
-        if(node == null)
-            return false;
-        if(set.contains(k-node.val))
-            return true;
-        set.add(node.val);
-        boolean left = dfs(node.left, k);
-        if(left)
-            return true;
-        boolean right = dfs(node.right, k);
-        return right;
+    TreeNode find(TreeNode root, int target) {
+        if (root == null) return null;
+        if (root.val == target) return root;
+        if (target < root.val) return find(root.left, target);
+        if (target > root.val) return find(root.right, target);
+        return null;
+    }
+
+    boolean dfs(TreeNode node, int k) {
+        if (node == null) return false;
+        TreeNode temp = find(root, k - node.val);
+        if (temp!= null && temp != node) return true;
+        boolean temp1 = dfs(node.left, k);
+        boolean temp2 = dfs(node.right, k);
+        return temp1 || temp2;
     }
 }

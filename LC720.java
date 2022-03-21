@@ -1,34 +1,22 @@
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 
 class Solution {
-    public String longestWord(String[] words) {
-        Set<String> set = new HashSet<>();
-        for (String word : words)
-            set.add(word);
-        Arrays.sort(words);
-//      System.out.println(Arrays.toString(words));
 
-        Stack<String> stack = new Stack<>();
-        int maxlen = 0;
-        for (int i = words.length - 1; i >= 0; i--) {
-            int flag = 1;
-            for (int j = 1; j <= words[i].length(); j++) {
-                if (!set.contains(words[i].substring(0,j))) {
-                    flag = 0;
+    public String longestWord(String[] words) {
+        // 状态 0 不知道 1 可以组成 2 不能组成
+        Set<String> set = new HashSet<>(Arrays.asList(words));
+        String res = "";
+        for (String word : words) {
+            boolean flag = true;
+            for (int i = word.length() - 1; i > 0; i--) {
+                if (!set.contains(word.substring(0, i))) {
+                    flag = false;
                     break;
                 }
             }
-//          System.out.println(flag);
-            if (flag == 1) {
-                maxlen = Math.max(maxlen, words[i].length());
-                if (words[i].length() == maxlen)
-                    stack.add(words[i]);
-            }
-
+            if (flag && (res.isEmpty() || res.length() < word.length() || (res.length() == word.length() && res.compareTo(word) > 0)))
+                res = word;
         }
-        return stack.pop();
+        return res;
     }
 }
