@@ -1,37 +1,32 @@
-import java.util.Stack;
+import java.util.Deque;
+import java.util.LinkedList;
 
 class Solution {
     public int calPoints(String[] ops) {
-        int lastPos = 0;
-        int[] isValid = new int[ops.length];
-        int grade = 0;
-        Stack<Integer> stack = new Stack<Integer>();
-        for (int i = 0; i < ops.length; i++) {
-            switch (ops[i]) {
+        int sum = 0;
+        Deque<Integer> deque = new LinkedList<>();
+        for (String op : ops) {
+            switch (op) {
                 case "+":
-                    int secondRound = stack.pop();
-                    int firstRound = stack.pop();
-                    grade += secondRound + firstRound;
-                    stack.add(firstRound);
-                    stack.add(secondRound);
-                    stack.add(firstRound + secondRound);
+                    int poll = deque.pollLast();
+                    int temp = deque.peekLast() + poll;
+                    deque.offerLast(poll);
+                    deque.offerLast(temp);
+                    sum += temp;
                     break;
                 case "D":
-                    int lastRound = stack.peek();
-                    grade += lastRound * 2;
-                    stack.add(lastRound * 2);
+                    deque.offerLast(deque.peekLast() * 2);
+                    sum += deque.peekLast();
                     break;
                 case "C":
-                    lastRound = stack.pop();
-                    grade -= lastRound;
+                    sum -= deque.pollLast();
                     break;
                 default:
-                    int number = Integer.parseInt(ops[i]);
-                    grade += number;
-                    stack.add(number);
+                    deque.offerLast(Integer.parseInt(op));
+                    sum += deque.peekLast();
                     break;
             }
         }
-        return grade;
+        return sum;
     }
 }
