@@ -19,17 +19,26 @@ class Node {
 };
 */
 class Solution {
+
+    Node pre, head;
+
     public Node treeToDoublyList(Node root) {
-        Node res = dfs(root);
-        return res;
+        if (root == null) return null;
+        head = pre = root;
+        while (head.left != null) head = head.left;
+        while (pre.right != null) pre = pre.right;
+        dfs(root);
+        head.left = pre;
+        pre.right = head;
+        return head;
     }
 
-    Node dfs(Node root) {
-        Node node1 = dfs(root.left);
-        Node node2 = dfs(root.right);
-        node1.right = root;
-        node2.left = root;
-
-
+    void dfs(Node cur) {
+        if (cur == null) return;
+        dfs(cur.left);
+        pre.right = cur;
+        cur.left = pre;
+        pre = cur;
+        if (cur.right != head) dfs(cur.right);
     }
 }

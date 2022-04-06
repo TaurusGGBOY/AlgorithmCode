@@ -1,33 +1,35 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 class Solution {
-    Set<String> set;
-    boolean[] visit;
+    List<String> res;
 
     public String[] permutation(String s) {
-        set = new HashSet<>();
-        visit = new boolean[s.length()];
-        char[] chars = s.toCharArray();
-        StringBuilder stringBuilder = new StringBuilder();
-        backtrack(chars, 0, stringBuilder);
-        return set.stream().toArray(String[]::new);
+        res = new ArrayList<>();
+        dfs(s.toCharArray(), 0);
+        String[] strs = new String[res.size()];
+        return res.toArray(strs);
     }
 
-    public void backtrack(char[] chars, int i, StringBuilder stringBuilder) {
-        if (i == chars.length) {
-            set.add(stringBuilder.toString());
+    void dfs(char[] c, int i) {
+        // 重点1：只有在最后一层才把结果加入，之前相当于还没有构建好
+        if (i == c.length-1) {
+            res.add(new String(c));
             return;
         }
-        for (int j = 0; j < chars.length; j++) {
-            if (visit[j]) {
-                continue;
-            }
-            visit[j] =true;
-            stringBuilder.append(chars[j]);
-            backtrack(chars, i + 1, stringBuilder);
-            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-            visit[j] = false;
+        // 重点2：因为我们其实只用关心第i个是否会有重复，所以记录后面会替换过来的就行
+        Set<Character> set = new HashSet<>();
+        for (int j = i; j < c.length; j++) {
+            if(set.contains(c[j])) continue;
+            set.add(c[j]);
+            swap(c, i, j);
+            dfs(c, i + 1);
+            swap(c, i, j);
         }
+    }
+
+    void swap(char[] c, int i, int j) {
+        char ch = c[i];
+        c[i] = c[j];
+        c[j] = ch;
     }
 }
