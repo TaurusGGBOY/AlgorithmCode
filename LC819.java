@@ -1,36 +1,23 @@
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 class Solution {
     public String mostCommonWord(String paragraph, String[] banned) {
-        String[] strs = paragraph.toLowerCase().substring(0, paragraph.length()).split("[ !?',;.]");
+        paragraph = paragraph.toLowerCase();
         Set<String> set = new HashSet<>();
+        for (String s : banned) set.add(s);
         Map<String, Integer> map = new HashMap<>();
-        for(String str:banned)
-            set.add(str.trim());
-        for(int i=0;i<strs.length;i++)
-        {
-            if(strs[i].isEmpty())
-                continue;
-            if (!set.contains(strs[i])) {
-                map.merge(strs[i], 1, (oldval, newval) -> oldval + newval);
-            }
+        String[] strs = paragraph.split("[\\s!?',;\\.]+");
+        for (String str : strs) {
+            if (!set.contains(str)) map.merge(str, 1, Integer::sum);
         }
-//        System.out.println(map.size());
-
         String res = "";
-        int maxNum=0;
-        for(Map.Entry<String,Integer> entry:map.entrySet())
-        {
-            if(maxNum<entry.getValue())
-            {
-                maxNum = entry.getValue();
+        int max = 0;
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            if (max < entry.getValue()) {
                 res = entry.getKey();
+                max = entry.getValue();
             }
         }
         return res;
     }
-
 }

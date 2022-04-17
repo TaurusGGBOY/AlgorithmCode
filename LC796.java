@@ -1,17 +1,11 @@
 class Solution {
-    public boolean rotateString(String A, String B) {
-        if(A.length()!=B.length())
-            return false;
-        if(A.length()<=1)
-            return true;
-        StringBuilder stringBuilder = new StringBuilder(B);
-        for(int i=0;i<B.length();i++)
-        {
-            char c = stringBuilder.charAt(0);
-            stringBuilder.deleteCharAt(0);
-            stringBuilder.append(c);
-            if(stringBuilder.toString().equals(A))
-                return true;
+    public boolean rotateString(String s, String goal) {
+        if(s.length()!=goal.length()) return false;
+        int len = s.length();
+        StringBuilder stringBuilder = new StringBuilder(s);
+        for (int i = 0; i < len; i++) {
+            if (stringBuilder.toString().endsWith(goal)) return true;
+            stringBuilder.append(s.charAt(i));
         }
         return false;
     }
