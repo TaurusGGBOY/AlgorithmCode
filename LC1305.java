@@ -1,50 +1,47 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
  * int val;
  * TreeNode left;
  * TreeNode right;
- * TreeNode(int x) { val = x; }
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
  * }
  */
+
+import java.util.*;
+
 class Solution {
     public List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
-        List<Integer> res = new ArrayList<>();
         List<Integer> list1 = new ArrayList<>();
         List<Integer> list2 = new ArrayList<>();
-        midSort(root1, list1);
-        midSort(root2, list2);
-        int i = 0;
-        int j = 0;
-        if(list1.size()==0)
-            return list2;
-        if(list2.size()==0)
-            return list1;
-        while (i != list1.size() || j != list2.size()) {
-            if (i == list1.size())
-                res.add(list2.get(j++));
-            else if (j == list2.size())
-                res.add(list1.get(i++));
-            else {
-                if (list1.get(i) < list2.get(j)) {
-                    res.add(list1.get(i++));
-                } else {
-                    res.add(list2.get(j++));
-                }
-            }
-        }
-        return res;
+        dfs(root1, list1);
+        dfs(root2, list2);
+        return merge(list1, list2);
     }
 
-    void midSort(TreeNode node, List<Integer> list) {
-        if(node==null)
-            return;
-        midSort(node.left, list);
-        list.add(node.val);
-        midSort(node.right, list);
+    void dfs(TreeNode root1, List<Integer> list) {
+        if (root1 == null) return;
+        dfs(root1.left, list);
+        list.add(root1.val);
+        dfs(root1.right, list);
+    }
+
+    List<Integer> merge(List<Integer> list1, List<Integer> list2) {
+        List<Integer> res = new ArrayList<>();
+        int l = 0, r = 0;
+        while (l < list1.size() || r < list2.size()) {
+            while (l == list1.size() && r < list2.size()) res.add(list2.get(r++));
+            while (r == list2.size() && l < list1.size()) res.add(list1.get(l++));
+            if (l == list1.size() || r == list2.size()) break;
+            if (list1.get(l) < list2.get(r)) res.add(list1.get(l++));
+            else res.add(list2.get(r++));
+        }
+        return res;
     }
 }

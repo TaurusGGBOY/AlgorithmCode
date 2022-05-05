@@ -1,15 +1,12 @@
-import java.util.Arrays;
-
 class Solution {
-    public int smallestRangeI(int[] A, int K) {
-        int min = A[0];
-        int max = A[0];
-        for (int i = 1; i < A.length; i++) {
-            if (min > A[i])
-                min = A[i];
-            if (max < A[i])
-                max = A[i];
+    public int smallestRangeI(int[] nums, int k) {
+        if (nums.length == 1) return 0;
+        int max = nums[0], min = nums[0];
+        for (int num : nums) {
+            max = Math.max(num, max);
+            min = Math.min(num, min);
         }
-        return Math.max(max - min - 2 * K, 0);
+        int temp = max - min - 2 * k;
+        return Math.max(0, temp);
     }
 }

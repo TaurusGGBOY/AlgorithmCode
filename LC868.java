@@ -1,19 +1,21 @@
 class Solution {
-    public int binaryGap(int N) {
-        String NStr = Integer.toBinaryString(N);
-        int maxLen=0;
-        int lastPos =(int) (NStr.length()-Math.log(Integer.highestOneBit(N)) / Math.log(2)-1);
-        //System.out.println(lastPos);
-        if(lastPos==-1)
-            return 0;
-        //System.out.println(NStr);
-        for (int i = lastPos; i < NStr.length(); i++) {
-            if(NStr.charAt(i)=='1')
-            {
-                maxLen = Math.max(maxLen, i - lastPos);
-                lastPos=i;
-            }
+    public int binaryGap(int n) {
+        int temp = 0;
+        int res = 0;
+        while (n != 0 && (n & 1) == 0) {
+            n >>= 1;
+            temp++;
         }
-        return maxLen;
+        int lo = temp;
+
+        while (n != 0) {
+            if (((n & 1) == 1)) {
+                res = Math.max(temp - lo, res);
+                lo = temp;
+            }
+            temp++;
+            n >>= 1;
+        }
+        return res;
     }
 }
