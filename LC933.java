@@ -2,18 +2,17 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 class RecentCounter {
-    Queue<Integer> queue;
+
+    Queue<Integer> deque;
 
     public RecentCounter() {
-        queue = new LinkedList<>();
+        deque = new LinkedList<>();
     }
 
     public int ping(int t) {
-
-        while (!queue.isEmpty() && queue.peek() > t - 3000)
-            queue.poll();
-        queue.add(t);
-        return queue.size();
+        deque.offer(t);
+        while (deque.peek() < t - 3000) deque.poll();
+        return deque.size();
     }
 }
 
