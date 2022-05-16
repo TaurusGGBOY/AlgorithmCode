@@ -1,25 +1,21 @@
-import java.util.*;
-
 class Solution {
 
     public boolean hasValidPath(char[][] grid) {
         if (grid[0][0] == ')') return false;
         if ((grid.length + grid[0].length) % 2 == 0) return false;
-        Set<Integer> dp[][] = new HashSet[grid.length][grid[0].length];
-        for (int i = 0; i < dp.length; i++) {
-            for (int j = 0; j < dp[0].length; j++) {
-                dp[i][j] = new HashSet<>();
-            }
-        }
-        dp[0][0].add(1);
-
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
+        int m = grid.length, n = grid[0].length, len = (m + n + 1) / 2;
+        int[][][] dp = new int[m][n][len];
+        dp[0][0][1] = 1;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 int left = grid[i][j] == '(' ? 1 : -1;
-                try {for (int num : dp[i - 1][j]) if (num + left >= 0) dp[i][j].add(num + left);} catch (Exception e) {}
-                try {for (int num : dp[i][j - 1])  if (num + left >= 0)  dp[i][j].add(num + left);} catch (Exception e) {}
+                for (int k = 0; k < len; k++) {
+                    if (k + left < 0 || k + left >= len) continue;
+                    if (i > 0) dp[i][j][k + left] = dp[i][j][k + left] | dp[i - 1][j][k];
+                    if (j > 0) dp[i][j][k + left] = dp[i][j][k + left] | dp[i][j - 1][k];
+                }
             }
         }
-        return dp[grid.length - 1][grid[0].length - 1].contains(0);
+        return dp[m - 1][n - 1][0] == 1;
     }
 }

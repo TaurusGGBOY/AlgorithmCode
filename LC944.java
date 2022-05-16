@@ -1,19 +1,19 @@
-// 不懂 不喜欢这道题
 class Solution {
-    public int minDeletionSize(String[] A) {
-        int l = A.length;
-        int n = A[0].length();
-        ArrayList al = new ArrayList();
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < l - 1; j++) {
-                if (A[j].charAt(i) > A[j + 1].charAt(i)) {
-                    al.add(i);
+    public int minDeletionSize(String[] strs) {
+        int res = 0;
+        for (int i = 0; i < strs[0].length(); i++) {
+            boolean flag = false;
+            int c = 'a';
+            for (int j = 0; j < strs.length; j++) {
+                if (strs[j].charAt(i) >= c) {
+                    c = strs[j].charAt(i);
+                } else {
+                    flag = true;
                     break;
                 }
             }
-
+            if (flag) res++;
         }
-        return al.size();
+        return res;
     }
-
 }
