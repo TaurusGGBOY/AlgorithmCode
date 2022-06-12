@@ -1,26 +1,34 @@
 /**
- * Definition for a binary tree node. public class TreeNode { int val; TreeNode left; TreeNode
- * right; TreeNode(int x) { val = x; } }
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
  */
 class Solution {
-  StringBuilder stringBuilder = new StringBuilder();
-  int sum = 0;
-
-  public int sumRootToLeaf(TreeNode root) {
-    if (root == null) return 0;
-    bfs(root);
-
-    return total;
-  }
-
-  void bfs(TreeNode node) {
-    if (node == null) return;
-    stringBuilder.append(node.val);
-    if (node.left == null && node.right == null) {
-      total += Integer.parseInt(stringBuilder.toString(), 2);
+    int res;
+    public int sumRootToLeaf(TreeNode root) {
+        res = 0;
+        dfs(root, 0);
+        return res;
     }
-    bfs(node.left);
-    bfs(node.right);
-    stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-  }
+
+    void dfs(TreeNode root, int grade) {
+        if(root == null) return;
+        grade = grade * 2 + root.val;
+        if(root.left == null && root.right == null){
+            res += grade;
+            return;
+        }
+        dfs(root.left,grade);
+        dfs(root.right,grade);
+    }
 }

@@ -1,13 +1,31 @@
-// 失败
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
+ * }
+ */
 class Solution {
-    public String toHex(int num) {
-        if(num==0)
-            return "0";
-        String hex="0123456789abcdef",ans="";
-        while(num!=0&&ans.length()<8){
-            ans=hex.charAt(num&0xf)+ans;
-            num>>=4;
+    public TreeNode deleteNode(TreeNode root, int key) {
+        if(root == null) return null;
+        if (root.val < key) root.right = deleteNode(root.right, key);
+        else if (root.val > key) root.left = deleteNode(root.left, key);
+        else {
+            if(root.left == null) return root.right;
+            if(root.right == null) return root.left;
+            TreeNode node = root.right;
+            while(node.left !=null) node = node.left;
+            node.left = root.left;
+            root = root.right;
         }
-        return ans;
+        return root;
     }
 }

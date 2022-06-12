@@ -1,19 +1,22 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Arrays;
 
 class Solution {
-    public int repeatedNTimes(int[] A) {
-        // for (int j = 0; j < 3; j++)
-        Set<Integer> set = new HashSet<Integer>();
-        for (int i = 0; i < A.length; i++) {
-            try {
-                if (set.contains(A[i]))
-                    return A[i];
-                set.add(A[i]);
-            } catch (Exception e) {
-                // TODO: handle exception
+    public int repeatedNTimes(int[] nums) {
+        Arrays.sort(nums);
+        Math.sqrt()
+
+        int temp = nums[0];
+        int count = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if(temp == nums[i]) count++;
+            else{
+                count--;
+                if (count < 0) {
+                    temp = nums[i];
+                    count = 1;
+                }
             }
         }
-        return 0;
+        return temp;
     }
 }

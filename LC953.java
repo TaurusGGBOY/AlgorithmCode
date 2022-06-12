@@ -1,26 +1,29 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 class Solution {
-  public boolean isAlienSorted(String[] words, String order) {
-    int[] orderArr = new int[26];
-    for (int i = 0; i < order.length(); i++) {
-      orderArr[order.charAt(i) - 'a'] = i;
-    }
-    boolean isLittle = false;
-    for (int i = 0; i < words.length-1; i++) {
-        isLittle = false;
-        for(int j=0;j<Math.min(words[i].length(),words[i+1].length());j++)
-        {
-            if(orderArr[words[i].charAt(j)-'a']-orderArr[words[i+1].charAt(j)-'a']>0)
-                return false;
-            if(orderArr[words[i].charAt(j)-'a']-orderArr[words[i+1].charAt(j)-'a']<0)
-            {
-                isLittle=true;
-                break;
-            }
+    public boolean isAlienSorted(String[] words, String order) {
+        int[] alpha = new int[26];
+        for (int i = 0; i < order.length(); i++) {
+            alpha[order.charAt(i)-'a'] = i + 'a';
         }
-      if (isLittle) continue;
-      if(words[i].length()>words[i+1].length())
-          return false;
+        List<String> temp1 = new ArrayList<>();
+        for (String word : words) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < word.length(); i++) {
+                stringBuilder.append((char) (alpha[word.charAt(i) - 'a']));
+            }
+            temp1.add(stringBuilder.toString());
+        }
+        List<String> temp2 = new ArrayList<>(temp1);
+        Collections.sort(temp1);
+//        System.out.println(temp1.toString());
+//        System.out.println(temp2.toString());
+//        System.out.println();
+        for (int i = 0; i < temp1.size(); i++) {
+            if (!temp1.get(i).equals(temp2.get(i))) return false;
+        }
+        return true;
     }
-    return true;
-  }
 }
