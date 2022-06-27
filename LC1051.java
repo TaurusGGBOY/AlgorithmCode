@@ -1,18 +1,13 @@
+import java.util.*;
+
 class Solution {
     public int heightChecker(int[] heights) {
-        int[] a = new int[101];
+        int[] temp = new int[heights.length];
+        System.arraycopy(heights, 0, temp, 0, heights.length);
+        Arrays.sort(temp);
         int count = 0;
-        for (int height : heights) {
-            a[height]++;
-        }
-
-        int j = 0;
-        for (int i = 1; i <= a.length - 1; i++) {
-            while (a[i]-- > 0) {
-                if (heights[j++] != i)
-                    count++;
-            }
-        }
+        for (int j = 0; j < heights.length; j++) if (heights[j] != temp[j]) count++;
         return count;
+
     }
 }

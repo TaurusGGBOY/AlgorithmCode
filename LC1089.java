@@ -1,18 +1,17 @@
 class Solution {
-  public void duplicateZeros(int[] arr) {
-    for (int i = 0; i < arr.length; i++) {
-      if (arr[i] == 0) {
-        for (int j = arr.length-1; j > i + 1; j--) {
-          arr[j] = arr[j - 1];
+    public void duplicateZeros(int[] arr) {
+        int l = 0;
+        while (l < arr.length) {
+            if (arr[l] != 0) {
+                l++;
+                continue;
+            }
+            for (int i = arr.length - 1; i > l; i--) arr[i] = arr[i - 1];
+            try {
+                arr[l + 1] = 0;
+            } catch (Exception e) {
+            }
+            l += 2;
         }
-        try{
-            arr[++i] = 0;
-        }
-        catch (Exception e)
-        {
-
-        }
-      }
     }
-  }
 }

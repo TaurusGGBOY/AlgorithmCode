@@ -1,30 +1,29 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 class Solution {
     public int findPairs(int[] nums, int k) {
-        if(k<0)
-            return 0;
-        int count=0;
-        Map<Integer,Integer> map = new HashMap<>();
-        for(int num:nums)
-        {
-            map.merge(num,1,(oldval,newval)->oldval+newval);
-        }
-        if(k==0)
-        {
-            for(Map.Entry<Integer,Integer> entry:map.entrySet())
-                count+=entry.getValue()>=2?1:0;
+        int l = 0, r = 1,count = 0;
+        Set<Integer> set = new HashSet<>();
+        if (k == 0) {
+            Set<Integer> flag = new HashSet<>();
+
+            for (int num : nums) {
+                if (set.contains(num) && !flag.contains(num)) {
+                    count++;
+                    flag.add(num);
+                }
+                set.add(num);
+            }
             return count;
         }
-        int[] arr = new int[map.size()];
-        int i=0;
-        for(int num:map.keySet())
-            arr[i++] = num;
-
-        for(int num:arr)
-            count+=map.keySet().contains(num+k)?1:0;
+        for (int num : nums) set.add(num);
+        List<Integer> list = new ArrayList<>(set);
+        Collections.sort(list);
+        while (r < list.size()) {
+            while (l < r && list.get(r) - list.get(l) > k) l++;
+            if (l < r && list.get(r) - list.get(l) == k) count++;
+            r++;
+        }
         return count;
-
     }
 }
