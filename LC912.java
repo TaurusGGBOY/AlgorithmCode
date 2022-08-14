@@ -1,37 +1,56 @@
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.PriorityQueue;
 
 class Solution {
     public int[] sortArray(int[] nums) {
-        quickSort(nums, 0, nums.length - 1);
-        return nums;
-    }
-
-    void quickSort(int[] nums, int l, int r) {
-        if (l >= r) return;
-        random(nums, l, r);
-        int m = partition(nums, l, r);
-        quickSort(nums, l, m - 1);
-        quickSort(nums, m + 1, r);
-    }
-
-    int partition(int[] nums, int l, int r) {
-        int pivot = nums[l];
-        while (l < r) {
-            while (l < r && nums[r] > pivot) r--;
-            nums[l] = nums[r];
-            while (l < r && nums[l] <= pivot) l++;
-            nums[r] = nums[l];
+        myPriorityQueue queue = new myPriorityQueue();
+        for (int num : nums) queue.offer(num);
+        int[] res = new int[nums.length];
+        for (int i = nums.length - 1; i >= 0; i--) {
+            res[i] = queue.poll();
         }
-        nums[l] = pivot;
-        return l;
+        return res;
     }
 
-    void random(int[] nums, int l, int r) {
-        int ran = l + new Random().nextInt(r - l);
-        int temp = nums[l];
-        nums[l] = nums[ran];
-        nums[ran] = temp;
+    class myPriorityQueue {
+        List<Integer> list;
+
+        public myPriorityQueue() {
+            list = new ArrayList<>();
+        }
+
+        public int poll() {
+            int res = list.get(0);
+            swap(0, list.size() - 1);
+            heapify(0, list.size() - 2);
+            list.remove(list.size() - 1);
+            return res;
+        }
+
+        public void offer(int num) {
+            list.add(num);
+            for (int i = (list.size() - 2) / 2; i >= 0; i=(i+1)/2-1) {
+                heapify(i, list.size() - 1);
+            }
+        }
+
+        void heapify(int i, int last) {
+            while (2 * i + 1 <= last) {
+                int l = 2 * i + 1, r = 2 * i + 2, max = i;
+                if (l <= last && list.get(l) > list.get(max)) max = l;
+                if (r <= last && list.get(r) > list.get(max)) max = r;
+                if (max == i) break;
+                swap(i, max);
+                i = max;
+            }
+        }
+
+        void swap(int i, int j) {
+            int temp = list.get(i);
+            list.set(i, list.get(j));
+            list.set(j, temp);
+        }
     }
-
-
 }

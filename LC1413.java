@@ -1,12 +1,11 @@
 class Solution {
     public int minStartValue(int[] nums) {
         int sum = 0;
-        int minVal=nums[0];
-        for (int num:nums)
-        {
-            sum+=num;
-            minVal = Math.min(sum, minVal);
+        int min = 0;
+        for (int num : nums) {
+            sum += num;
+            min = Math.min(sum, min);
         }
-        return minVal>=0?1:-minVal+1;
+        return Math.max(1, -min+1);
     }
 }

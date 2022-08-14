@@ -13,17 +13,18 @@ class Node {
 }
 */
 
-import java.util.*;
+import java.util.HashMap;
 
 class Solution {
-    Map<Node, Node> map = new HashMap<>();
+    Map<Node, Node> map;
     public Node copyRandomList(Node head) {
-        if(head==null) return null;
-        if(map.containsKey(head)) return map.get(head);
-        Node temp = new Node(head.val);
-        map.put(head, temp);
-        temp.next = copyRandomList(head.next);
-        temp.random = copyRandomList(head.random);
-        return map.get(head);
+        if (head == null) return null;
+        if (map == null) map = new HashMap<>();
+        if (map.containsKey(head)) return map.get(head);
+        Node head1 = new Node(head.val);
+        map.put(head, head1);
+        head1.next = copyRandomList(head.next);
+        head1.random = copyRandomList(head.random);
+        return head1;
     }
 }

@@ -1,34 +1,18 @@
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 class Solution {
     public int numPrimeArrangements(int n) {
-        if (n == 1)
-            return 1;
-        int priCount = 0;
-        for (int i = 2; i <= n; i++) {
-            if (isPri(i))
-                priCount++;
+        Set<Integer> set = new HashSet<>(Arrays.asList(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97));
+        long l = 0, r = 0;
+        long lRes = 1, rRes = 1;
+        long mod = 1000000007;
+        for (int i = 1; i <= n; i++) {
+            if (set.contains(i)) lRes = (lRes * ++l) % mod;
+            else rRes = (++r * rRes) % mod;
         }
-        int res = 1;
-        long[] dp = new long[101];
-        dp[0] = 1;
-        for (int i = 1; i <= Math.max(priCount, n - priCount); i++) {
-            dp[i] = (dp[i - 1] * i) % 1000000007;
-        }
-//        System.out.println(dp[n-priCount]);
-//        System.out.println(dp[priCount]);
-        return (int) ((dp[n - priCount] * dp[priCount]) % 1000000007);
-    }
+        return (int) ((lRes * rRes) % mod);
 
-    boolean isPri(int num) {
-        if (num <= 1)
-            return false;
-        if(num==2)
-            return true;
-        for (int i = 2; i <= Math.sqrt(num) + 1; i++) {
-            if (num % i == 0)
-                return false;
-        }
-//        System.out.println(num);
-        return true;
     }
-
 }
