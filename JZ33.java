@@ -8,6 +8,7 @@ class Solution {
 
     boolean dfs(int l, int r) {
         if (l >= r) return true;
+        Map<Integer, Integer>
         int m = l;
         while (post[m] < post[r]) m++;
         int n = m;
