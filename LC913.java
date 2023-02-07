@@ -1,6 +1,4 @@
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 class Solution {
     int[] dis;
@@ -9,7 +7,7 @@ class Solution {
     public int catMouseGame(int[][] graph) {
         dis = new int[graph.length];
         canPass = new boolean[graph.length];
-        vis = new boolean[graph.length];
+        redVis = new boolean[graph.length];
         dfs(2);
         int[] cat = Arrays.copyOf(dis, dis.length);
         Arrays.fill(dis, -1);

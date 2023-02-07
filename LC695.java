@@ -9,7 +9,7 @@ class Solution {
         count = 0;
         max = 0;
         g = grid;
-        vis = new int[grid.length][grid[0].length];
+        redVis = new int[grid.length][grid[0].length];
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
                 count = 0;
@@ -20,8 +20,8 @@ class Solution {
     }
 
     void dfs(int x, int y) {
-        if (x < 0 || y < 0 || x >= g.length || y >= g[0].length || g[x][y] == 0 || vis[x][y] == 1) return;
-        vis[x][y] = 1;
+        if (x < 0 || y < 0 || x >= g.length || y >= g[0].length || g[x][y] == 0 || redVis[x][y] == 1) return;
+        redVis[x][y] = 1;
         count++;
         max = Math.max(count, max);
         for (int[] d : directions) dfs(x + d[0], y + d[1]);

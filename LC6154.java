@@ -28,7 +28,7 @@ class Solution {
     public int amountOfTime(TreeNode root, int start) {
         map = new HashMap<>();
         tree = new HashMap<>();
-        vis = new HashSet<>();
+        redVis = new HashSet<>();
         depth = 0;
         max = 0;
         build(root);
@@ -49,8 +49,8 @@ class Solution {
     }
 
     void dfs(TreeNode root) {
-        if (vis.contains(root.val)) return;
-        vis.add(root.val);
+        if (redVis.contains(root.val)) return;
+        redVis.add(root.val);
         depth++;
         max = Math.max(depth, max);
         if (root.left != null) dfs(root.left);

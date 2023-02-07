@@ -7,7 +7,7 @@ class Solution {
     Set<int[]> set;
 
     public int[][] colorBorder(int[][] grid, int row, int col, int color) {
-        vis = new boolean[grid.length][grid[0].length];
+        redVis = new boolean[grid.length][grid[0].length];
         dir = new int[]{0, 1, 0, -1, 1, 0, -1, 0};
         set = new HashSet<>();
 
@@ -22,10 +22,10 @@ class Solution {
         if (row >= grid.length || row < 0 || col >= grid[0].length || col < 0) {
             return;
         }
-        if (vis[row][col]) {
+        if (redVis[row][col]) {
             return;
         }
-        vis[row][col] = true;
+        redVis[row][col] = true;
         if (board(grid, row, col)) {
             set.add(new int[]{row, col});
         }

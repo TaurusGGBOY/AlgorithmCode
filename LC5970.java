@@ -8,11 +8,11 @@ class Solution {
 
     public int maximumInvitations(int[] favorite) {
         dp = new int[favorite.length];
-        vis = new int[favorite.length];
+        redVis = new int[favorite.length];
         max = 0;
         map = new HashMap<>();
         for (int i = 0; i < favorite.length; i++) {
-            if (vis[i] != 0) {
+            if (redVis[i] != 0) {
                 continue;
             }
             int val = dfs(favorite, i);
@@ -23,14 +23,14 @@ class Solution {
     }
 
     int dfs(int[] favorite, int i) {
-        if (dp[i] == 0 && vis[i] == 1) {
+        if (dp[i] == 0 && redVis[i] == 1) {
             return 0;
         }
-        if (dp[i] != 0 || vis[i] == 1) {
+        if (dp[i] != 0 || redVis[i] == 1) {
             return dp[i];
         }
         System.out.println("i:"+i+"in");
-        vis[i] = 1;
+        redVis[i] = 1;
         int val = dfs(favorite, favorite[i]);
         Set<Integer> set = map.getOrDefault(favorite[i], new HashSet<>());
         if (set.contains(i)) {

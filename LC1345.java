@@ -10,7 +10,7 @@ class Solution {
 
     public int minJumps(int[] arr) {
         dp = new int[arr.length];
-        vis = new int[arr.length];
+        redVis = new int[arr.length];
         next = new HashMap<>();
 
         for (int i = 0; i < arr.length; i++) {
@@ -21,14 +21,14 @@ class Solution {
         }
         for (int i = 0; i < arr.length; i++) {
             dfs(arr, i);
-            vis[i] = 1;
+            redVis[i] = 1;
          }
 //        System.out.println();
         return dp[arr.length - 1];
     }
 
     void dfs(int[] arr, int pos) {
-        if (pos > arr.length || pos < 0 || vis[pos] == 1) return;
+        if (pos > arr.length || pos < 0 || redVis[pos] == 1) return;
 //        System.out.println(pos);
         Set<Integer> set = next.getOrDefault(arr[pos], new HashSet<>());
         if (!set.isEmpty()) for (int i : set) if (dp[i] > dp[pos] + 1) dp[i] = dp[pos] + 1;

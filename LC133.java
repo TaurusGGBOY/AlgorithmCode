@@ -5,9 +5,9 @@ class Solution {
 
     public Node cloneGraph(Node node) {
         if(node == null) return null;
-        if(vis.containsKey(node)) return vis.get(node);
+        if(redVis.containsKey(node)) return redVis.get(node);
         Node temp = new Node(node.val, new ArrayList<>());
-        vis.put(node, temp);
+        redVis.put(node, temp);
         for (Node n : node.neighbors) temp.neighbors.add(cloneGraph(n));
         return temp;
     }

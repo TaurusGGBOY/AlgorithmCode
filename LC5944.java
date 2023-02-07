@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -30,7 +29,7 @@ class Solution {
         setParents(root);
         rec = new StringBuilder();
         res = new StringBuilder();
-        vis = new HashMap<>();
+        redVis = new HashMap<>();
         dfs(startNode, destValue);
         return res.toString();
     }
@@ -72,13 +71,13 @@ class Solution {
         if (res.length() != 0) {
             return;
         }
-        if(vis.getOrDefault(node, false)){
+        if(redVis.getOrDefault(node, false)){
             return;
         }
-        vis.put(node, true);
+        redVis.put(node, true);
         if (node.val == destValue) {
             res.append(rec);
-            vis.put(node, false);
+            redVis.put(node, false);
             return;
         }
 
@@ -91,7 +90,7 @@ class Solution {
         rec.append("R");
         dfs(node.right, destValue);
         rec.deleteCharAt(rec.length() - 1);
-        vis.put(node, false);
+        redVis.put(node, false);
     }
 
 }
