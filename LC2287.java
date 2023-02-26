@@ -1,87 +1,22 @@
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Scanner;
-import java.util.Vector;
 
-public class Main {
-    static public void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Map<Integer, Vector<Integer>> map = new HashMap<Integer, Vector<Integer>>();
+class Solution {
+    public int rearrangeCharacters(String s, String target) {
+        Map<Character, Integer> counter1 = new HashMap<>();
+        Map<Character, Integer> counter2 = new HashMap<>();
 
-        int n = scanner.nextInt();
-        int t = n;
-        while (t-- > 0) {
-            int x = scanner.nextInt();
-            int y = scanner.nextInt();
-            Vector<Integer> set = map.get(x);
-            if (set == null)
-                set = new Vector<>();
-            set.add(y);
-            map.put(x, set);
+        for (char c : s.toCharArray()){
+            counter1.merge(c, 1, Integer::sum);
         }
-        int claster = 0;
 
-        for (int x : map.keySet()) {
-            Vector<Integer> set = map.get(x);
-            Iterator<Integer> iterator = set.iterator();
-            while (iterator.hasNext()) {
-                int y = iterator.next();
-                for (int x1 : map.keySet()) {
-                    // System.out.print("����");
-                    // System.out.print(x);
-                    // System.out.print(" ");
-                    // System.out.print(y);
-                    // System.out.print(" ");
-                    // System.out.print(x1);
-                    //
-                    // System.out.println(" ");
-                    Vector<Integer> set1 = map.get(x1);
-                    if (x == x1) {
-                        claster += set.size();
-                        continue;
-                    }
-                    if (set1.contains(y - (x - x1))) {
-                        // System.out.print("��һ��");
-                        // System.out.print(x);
-                        // System.out.print(" ");
-                        // System.out.print(y);
-                        // System.out.print(" ");
-                        // System.out.print(x1);
-                        // System.out.print(" ");
-                        // System.out.print(y - (x - x1));
-                        // System.out.println(" ");
-                        claster++;
-                    }
-                    if (set1.contains(y + (x - x1))) {
-                        // System.out.print("�ڶ���");
-                        // System.out.print(x);
-                        // System.out.print(" ");
-                        // System.out.print(y);
-                        // System.out.print(" ");
-                        // System.out.print(x1);
-                        // System.out.print(" ");
-                        // System.out.print(y + (x - x1));
-                        // System.out.println(" ");
-                        claster++;
-                    }
-                    if (set1.contains(y)) {
-                        // System.out.print("������");
-                        // System.out.print(x);
-                        // System.out.print(" ");
-                        // System.out.print(y);
-                        // System.out.print(" ");
-                        // System.out.print(x1);
-                        // System.out.print(" ");
-                        // System.out.print(y);
-                        // System.out.println(" ");
-                        claster++;
-                    }
-                }
-            }
+        for (char c : target.toCharArray()){
+            counter2.merge(c, 1, Integer::sum);
         }
-        // System.out.println(claster);
-        System.out.println((claster - n) / 2);
-
+        int res = 0;
+        for (Map.Entry<Character, Integer> e : counter2.entrySet()){
+            res = Math.max(res, counter1.getOrDefault(e.getKey(), 0) % e.getValue());
+        }
+        return res;
     }
 }

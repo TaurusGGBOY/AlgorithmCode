@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 /*
  * // This is the custom function interface.
  * // You should not implement it, or speculate about its implementation
@@ -11,24 +8,24 @@ import java.util.List;
  *     public int f(int x, int y);
  * };
  */
-// 不喜欢这种题
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 class Solution {
     public List<List<Integer>> findSolution(CustomFunction customfunction, int z) {
-        List<List<Integer>> list = new ArrayList<>();
-        List<Integer> temp = new ArrayList<>();
-        for (int i = 1; i <= z; i++) {
-            for (int j = 1; j <= z; j++) {
-                if (customfunction.f(i, j) > z)
-                    break;
+        List<List<Integer>> res = new ArrayList<>();
 
-                if (customfunction.f(i, j) == z) {
-                    temp = new ArrayList<>();
-                    temp.add(i);
-                    temp.add(j);
-                    list.add(temp);
-                }
+        for (int i = 1; i <= 1000; i++) {
+            for (int j = 1; j <= 1000; j++) {
+                int ans = customfunction.f(i, j);
+                if (ans < z) continue;
+                if (ans > z) break;
+                res.add(Arrays.asList(i, j));
+                break;
             }
         }
-        return list;
+        return res;
     }
 }
