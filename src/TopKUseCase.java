@@ -5,6 +5,7 @@ class TopKUseCase {
     public static void main(String[] args) throws IOException {
         try {
             final int divNum = 1000;
+            System.out.println("test");
             File outputfile = new File("d:\\bigdata.txt");
             StringBuilder stringBuilder = new StringBuilder();
             PrintWriter output = new PrintWriter(outputfile);
