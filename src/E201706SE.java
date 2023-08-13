@@ -4,8 +4,8 @@ public class Main {
 
     static public void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("test");
 
-        // ���θ������
     }
 
 }

@@ -1,6 +1,6 @@
 #include <cstdio>
 #include <memory>
-//ÓĞ´í ÔİÎ´·¢ÏÖbugËùÔÚ
+//ï¿½Ğ´ï¿½ ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½bugï¿½ï¿½ï¿½ï¿½
 void output(int r[], int n)
 {
 	for (int i = 0; i < n; i++)
