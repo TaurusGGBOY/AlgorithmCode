@@ -2,35 +2,43 @@ import java.util.*;
 
 class Solution {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
-        Map<Integer, Set<Integer>> next = new HashMap<>();
-        Set<Integer> zeroSet = new HashSet<>();
+        int[] res = new int[numCourses];
         int[] inDegree = new int[numCourses];
-        List<Integer> res = new ArrayList<>();
-        for (int i = 0; i < inDegree.length; i++) zeroSet.add(i);
+        Map<Integer, Set<Integer>> map = new HashMap<>();
 
         for (int[] p : prerequisites) {
-            inDegree[p[0]]++;
-            zeroSet.remove(p[0]);
-
-            Set<Integer> set = next.getOrDefault(p[1], new HashSet<>());
+            Set<Integer> set = map.getOrDefault(p[1], new HashSet<>());
             set.add(p[0]);
-            next.put(p[1], set);
+            map.put(p[1], set);
+            inDegree[p[0]]++;
         }
 
-        while (!zeroSet.isEmpty()) {
-            Iterator<Integer> iterator = zeroSet.iterator();
-            int temp = iterator.next();
-            iterator.remove();
-            res.add(temp);
+        Queue<Integer> zero = new ArrayDeque<>();
 
-            Set<Integer> set = next.getOrDefault(temp, new HashSet<>());
-            for (int i : set) if (--inDegree[i] == 0) zeroSet.add(i);
+        for (int i = 0; i < inDegree.length; i++) {
+            if (inDegree[i] == 0) {
+                zero.offer(i);
+            }
         }
-        if(res.size()!=numCourses) return new int[0];
 
-        int[] ans = new int[res.size()];
-        for (int i = 0; i < ans.length; i++) ans[i] = res.get(i);
-        return ans;
+        int index = 0;
+        while (!zero.isEmpty()) {
+            int poll = zero.poll();
+            res[index++] = poll;
 
+            Set<Integer> set = map.getOrDefault(poll, new HashSet<>());
+            for (int next : set) {
+                inDegree[next]--;
+                if (inDegree[next] == 0) {
+                    zero.offer(next);
+                }
+            }
+        }
+
+        if (index != numCourses) {
+            return new int[0];
+        }
+
+        return res;
     }
 }
